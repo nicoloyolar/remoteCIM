@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div>
+      <h1 class="cards-title">SELECCIONE UNA ESTACIÓN</h1>
+    </div>
+    <div class="card-container">
+
+      <div class="card">
+        <h2>Almacenamiento</h2>
+        <a href="{% url 'connect_device' 'device1' %}"><img src="{% static 'images/scorbot.jpg' %}" alt="Estación 1"></a>
+        <h6>Primera Estación - Almacenamiento</h6>
+      </div>
+      
+      <div class="card">
+        <h2>Mecanizado</h2>
+        <a href="{% url 'connect_device' 'device2' %}"><img src="{% static 'images/scorbot.jpg' %}" alt="Estación 1"></a>
+        <h6>Segunda Estación - Mecanizado</h6>
+      </div>
+
+      <div class="card">
+        <h2>Control de Calidad</h2>
+        <a href="{% url 'connect_device' 'device3' %}"><img src="{% static 'images/scorbot.jpg' %}" alt="Estación 1"></a>
+        <h6>Tercera Estación - Control de Calidad</h6>
+      </div>
+    </div>
+
+{% endblock %}

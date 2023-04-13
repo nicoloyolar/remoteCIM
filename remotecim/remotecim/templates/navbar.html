@@ -1,0 +1,33 @@
+{% load static %}
+
+<nav class="navbar">
+    <a class="logo-navbar">RemoteCIM</a>
+    {% if user.is_authenticated %}
+        <div class="navbar-text">Bienvenido {{ user.username }}!</div>
+        
+        <button class="dropbtn">Historial</button>
+        <button class="dropbtn">Horarios</button>
+        <div class="dropdown">
+            <button class="dropbtn">Asignaturas 
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="{% url 'main' %}">Subject1</a>
+                <a href="{% url 'home' %}">Subject2</a>
+            </div>
+            </div>
+
+            <div class="dropdown">
+            <button class="dropbtn">Usuarios 
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="{% url 'main' %}">User1</a>
+                <a href="{% url 'home' %}">User2</a>
+            </div>
+        </div>
+        <a class="a-navbar" href="{% url 'logout' %}">Logout</a>
+    {% endif %}
+    
+    <a href="https://www.ubiobio.cl/w/" target="_blank"><img src="{% static 'images/ubb_escudo.png' %}" width="40px" height="40px" alt="logo-ubb-navbar"></a>
+</nav>

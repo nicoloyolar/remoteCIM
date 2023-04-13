@@ -1,0 +1,17 @@
+{% load static %}
+{% include 'navbar.html' %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <link rel="stylesheet" type="text/css" href="{% static 'css/styles-navbar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles-login.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles-home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles-main.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    {% block content %}
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% csrf_token %}
+
+{% block content %}
+
+    <div class="container-main2">
+        <div class="carousel-container">
+            <!-- Teach Pendant -->
+            <div class="carousel-item">
+                <div class="container-main">    
+                    <div class="container-botonera">
+                        <h1 class="h1-botonera">Teach Pendant</h1>
+                        <input type="text" id="screen-botonera" disabled>
+                        <table class="teach-pendant">
+                            <tr>
+                                <td><a href="{% url 'xyz' 'device1' %}" onclick="changeInputValue(this)" id="xyz">XYZ</a></td>
+                                <td><a href="{% url 'ejes' 'device1' %}" onclick="changeInputValue(this)" id="ejes">Ejes</a></td>
+                                <td><a onclick="changeInputValue(this)" id="velocidad">Velocidad</a></td>
+                                <td><a href="{% url 'con' 'device1' %}" onclick="changeInputValue(this)" id="con">Control ON</a></td>
+                                <td><a href="{% url 'coff' 'device1' %}" onclick="changeInputValue(this)" id="coff">Control OFF</a></td>
+                            </tr>
+                            <tr>
+                                <td><a onclick="changeInputValue(this)" id="b1">+X/+Q1</a></td>
+                                <td><a onclick="changeInputValue(this)" id="b2">+Y/+Q2</a></td>
+                                <td><a onclick="changeInputValue(this)" id="b3">+Z/+Q3</a></td>
+                                <td><a onclick="changeInputValue(this)" id="b4">+Q4/PITCH</a></td>
+                                <td><a onclick="changeInputValue(this)" id="b5">+Q5/ROLL</a></td>
+                            </tr>
+                            <tr>
+                                <td><a onclick="changeInputValue(this)" id="b6">-X/-Q1</a></td>
+                                <td><a onclick="changeInputValue(this)" id="b7">-Y/-Q2</a></td>
+                                <td><a onclick="changeInputValue(this)" id="b8">-Z/-Q3</a></td>
+                                <td><a onclick="changeInputValue(this)" id="b9">-Q4/PITCH</a></td>
+                                <td><a onclick="changeInputValue(this)" id="b10">-Q5/ROLL</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="{% url 'modo' 'device1' %}" onclick="changeInputValue(this)" id="manual/directo">Manual/Directo</a></td>
+                                <td><a href="{% url 'home' 'device1' %}" onclick="changeInputValue(this)" id="home">Home</a></td>
+                                <td><a href="{% url 'open' 'device1' %}" onclick="changeInputValue(this)" id="open">Open</a></td>
+                                <td><a href="{% url 'close' 'device1' %}" onclick="changeInputValue(this)" id="close">Close</a></td>
+                                <td><a onclick="changeInputValue(this)" id="save">Save</a></td>
+                            </tr>
+                       
+                        </table>
+                    </div>
+                </div>
+            </div>  
+            
+            <!-- Rutinas -->
+            <div class="carousel-item">
+                <div class="container-main">    
+                    <div class="container-rutinas">
+                        <h1 class="h1-botonera">Rutinas</h1>
+                        <table id="myTable" class="rutinas">
+                            <thead>
+                                <tr>
+                                    <th>Comando</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select>
+                                            <option value="option1">home</option>
+                                            <option value="option2">moved 0</option>
+                                            <option value="option3">moved 00</option>
+                                            <option value="option3">movel</option>
+                                            <option value="option3">moveld</option>
+                                            <option value="option3">open</option>
+                                            <option value="option3">close</option>
+                                        </select>
+                                    </td>
+                                    <td><a href="#" onclick="deleteRow(this)">Eliminar</a></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <select>
+                                            <option value="option1">home</option>
+                                            <option value="option2">moved 0</option>
+                                            <option value="option3">moved 00</option>
+                                            <option value="option3">movel</option>
+                                            <option value="option3">moveld</option>
+                                            <option value="option3">open</option>
+                                            <option value="option3">close</option>
+                                        </select>
+                                    </td>
+                                    <td><a href="#" onclick="deleteRow(this)">Eliminar</a></td>
+                                </tr>
+                                <tr id="new-row" style="display: none">
+                                    <td><input type="text" name="new-data1"></td>
+                                    <td><input type="text" name="new-data2"></td>
+                                    <td>
+                                    <select name="new-select2">
+                                        <option value="option1">home</option>
+                                        <option value="option2">moved 0</option>
+                                        <option value="option3">moved 00</option>
+                                        <option value="option3">movel</option>
+                                        <option value="option3">moveld</option>
+                                        <option value="option3">open</option>
+                                        <option value="option3">close</option>
+                                    </select>
+                                    </td>
+                                    <td><a href="#" onclick="addRow()">Agregar</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn-add" onclick="showNewRow()">+</button>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary" data-slide="next">Next</button>
+        
+        <!-- monitoreo -->
+        <table class="monitoreo">
+            <thead>
+                <tr class="row-header">
+                    <th class="th-historial">Monitoreo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><video id="video1" width="320" height="200" autoplay></video></td>
+                </tr>
+                <tr>
+                    <td><video id="video2" width="320" height="200" autoplay></video></td>
+                </tr>
+                <tr>
+                    <td><video id="video3" width="320" height="200" autoplay></video></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </body>
+</html>
+
+<script>
+    const video1 = document.getElementById('video1');
+    const video2 = document.getElementById('video2');
+    const video3 = document.getElementById('video3');
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+    .then(function(stream) {
+        video1.srcObject = stream;
+        video2.srcObject = stream;
+        video3.srcObject = stream;
+    })
+    .catch(function(error) {
+        console.log('Error accessing media devices.', error);
+    });
+</script>
+
+<script>
+    function changeInputValue(element) {
+        var input = document.getElementById("screen-botonera");
+        input.value = element.innerText;
+    }
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,140 @@
+TROUBLESHOOTING DJANGO
+
+Este documento detalla el proceso de desarrollo de la aplicación "Remote CIM".
+Principalmente, esta aplicación consta con tres roles de usuarios: 
+
+    1.- Administrador: este rol tiene acceso completo a todas las partes de la 
+                       aplicación y puede realizar cualquier acción, como crear,
+                       modificar y eliminar objetos. Los usuarios con este rol 
+                       deberían ser capaces de administrar las configuraciones y
+                       ajustes de la aplicación.
+                       Para esta aplicación, el rol de administrador puede crear,
+                       registrar, actualizar y borrar usuarios y asignaturas.
+                       Tendrá acceso a todas las vistas.
+    
+    2.- Profesor: este rol tiene acceso limitado a ciertas partes de la aplicación
+                  y puede realizar acciones relacionadas a las funciones de un
+                  docente de la universidad del Bío-Bío. Debe ser capaz de crear,
+                  modificar y eliminar objetos relacionados a las funciones de su
+                  trabajo (asignaturas - experiencias - laboratorios - horarios)
+    
+    3.- Estudiante: este rol tiene acceso limitado de la aplicación y puede realizar
+                    ciertas acciones relacionadas a su cuenta, como actualizar el
+                    perfil o ver sus propios datos. No debería ser capaz de crear, 
+                    modificar o eliminar objetos creados por otros usuarios.
+
+En la administración de django se crean tres grupos, uno para cada categoría de usuario.
+Las vistas de la aplicación son las siguientes:
+
+    1.- Login -> Ventana principal de la aplicación
+    2.- Home -> Se accede desde el login
+    3.- Main -> Solo se accede desde la selección de la estación
+    4.- Registro Usuarios -> Se accede desde navbar de una lista desplegable "Administrador"
+    5.- Mantenedor Usuarios -> Se accede desde navbar de una lista desplegable "Administrador"
+    6.- Registro Asignaturas
+    7.- Mantenedor Asignaturas
+    8.- Historial -> Se accede desde navbar
+    9.- Solicitud Horarios -> Se accede desde navbar
+
+    - El administrador tendrá acceso a:
+
+        1.- Login
+        2.- Home
+        3.- Main
+        4.- Registro Usuarios
+        5.- Mantenedor Usuarios
+        6.- Registro Asignaturas
+        7.- Mantenedor Asignaturas
+        8.- Historial
+        9.- Solicitud Horarios
+
+    - El profesor tendrá acceso a:
+
+        1.- Login
+        2.- Home
+        3.- Main
+        7.- Mantenedor Asignaturas
+        8.- Historial 
+        9.- Solicitud Horarios
+
+    - El estudiante tendrá acceso a:
+
+        1.- Login
+        2.- Home
+        3.- Main
+        8.- Historial 
+        9.- Solicitud Horarios
+
+Librerías:
+
+- Para esta aplicación solo es necesario instalar django y channels para levantar el servidor. 
+- Para evitar ataques de fuerza bruta se instala django-ratelimit
+
+Instalación Django
+    - pip install django o python -m pip install django
+
+Instalación Channels
+    - pip install channels o python -m pip install channels
+
+Creación de Proyecto en Django
+    - python -m django startproject myproject
+
+Ciberseguridad:
+
+    - pip install django-ratelimit o python -m pip install django-ratelimit
+
+Para desplegar la aplicación en el servidor de Django:
+
+    - cd myproject 
+    - python manage.py runserver
+
+Para crear una cuenta de superusuario se debe ejecutar el siguiente comando:
+    - python manage.py createsuperuser
+
+Luego, se puede acceder al administrador de django con la siguiente ruta de navegación:
+    - http://127.0.0.1:8000/admin/
+
+- Los superusers son:
+    - user: nicolas
+    - password: n3k4l1S!!!
+
+    - user: alexis_villa
+    - password: 1l2x3s123
+
+- Los usuarios estandar son:
+    - user: aerubio
+    - password: 1erubi0123
+
+    - user: luis_vera
+    - password: L52SV2r1!
+
+La carpeta template debe estar al mismo nivel que 'manage.py'.
+El comando 'migrate auth' es utilizado para sincronizar el esquema de la base de datos
+con el estado actual de los modelos en el proyecto Django.
+Por defecto Django utiliza SQLite como el backend de la base de datos, y este comando
+crea las tablas necesarias en la base de datos para que la aplicación 'auth' trabaje
+correctamente. Debe ser utilizado siempre que se hagan cambios a los modelos del proyecto
+o cuando se instala una nueva app que requiera de crear tablas de bases de datos.
+
+TROUBLESHOOTING GIT 
+
+Para integrar GitHub a un proyecto se debe 
+
+    1.- Crear una cuenta de GitHub.
+    2.- Crear un repositorio para hostear el proyecto. Se le debe asignar un nombre,
+    descripción y licencia. 
+    3.- Inicializar Git en el proyecto. Se debe navegar hasta el directorio del proyecto
+    mediante consola y ejecutar el comando "git init". Considerar que "git init" se debe
+    ejecutar una sola vez por repositorio.
+    4.- Añadir archivos al repositorio. "git add <file name>" o "git add .".
+    5.- Cometer cambios para crear una captura de los archivos en el repositorio.
+    Usar "git commit -m 'Commit message'".
+    6.- Conectar el repositorio local a GitHub. Usar "git remote add origin <GitHub 
+    repository URL>".
+    7.- Enviar cambios a GitHub. Usar "git push -u origin master".
+
+Para ver el usuario y el mail asociado a la cuenta de Git de una máquina, se puede 
+usar el siguiente comando:
+
+    - "git config --list"
+
