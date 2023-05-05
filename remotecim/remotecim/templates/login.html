@@ -8,6 +8,9 @@
   <div class="container-login">
       <img class="img-login" src="{% static 'images/ubb.png' %}" alt="logo UBB">
       <h4 class="login-title">Ingrese sus datos</h4>
+      {% if error_message %}
+      <input type="hidden" id="error_message" value="{{ error_message }}">
+      {% endif %}
       <div class="input-wrapper">
           <input autocomplete="off" type="text" class="input-login" placeholder="Ingrese su nombre" name="username" required>
           <i class="fas fa-user input-icon"></i>
@@ -22,4 +25,19 @@
   </div>
 </form>
 
+{% if error_message %}
+<script>
+  window.onload = function() {
+    var errorMessage = document.getElementById('error_message').value;
+    if (errorMessage) {
+      Swal.fire({
+        title: 'Error',
+        text: errorMessage,
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    }
+  };
+</script>
+{% endif %}
 {% endblock %}

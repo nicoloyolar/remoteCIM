@@ -82,13 +82,17 @@ class modo(View):
 @csrf_exempt
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect(reverse_lazy('home'))  
-    return render(request, 'login.html')
+            return redirect('home')
+        else:
+            error_message = 'Nombre de usuario o contraseña incorrectos.'
+            return render(request, 'login.html', {'error_message': error_message})
+    else:
+        return render(request, 'login.html')
 
 def home_view(request):
     if request.user.is_authenticated:

@@ -4,12 +4,17 @@ body {
     padding: 0;
 }
 
+:root {
+    --primary-color: #2d7aff;
+}
+
 .logo-navbar {
     font-size: 40px;
+    color: white;
 }
 
 .a-navbar {
-    background-color: #4CAF50;
+    background-color: var(--primary-color);
     color: white;
     padding: 10px;
     font-size: 16px;
@@ -19,16 +24,17 @@ body {
 }
 
 .a-navbar:hover {
-    background-color: #3e8e41;
+    background-color: #1e5fc2;
 }
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #2d7aff;
+    background-color: var(--primary-color);
     color: #fff;
     padding: 10px;
+    transition: background-color 0.5s ease-in-out;
 }
 
 @media (max-width: 768px) {
@@ -52,6 +58,7 @@ body {
     display: none;
     position: absolute;
     z-index: 1;
+    background-color: #2d7aff;
 }
 
 .dropdown:hover .dropdown-content {
@@ -59,7 +66,7 @@ body {
 }
 
 .dropbtn {
-    background-color: #4CAF50;
+    background-color: var(--primary-color);
     color: white;
     padding: 10px;
     font-size: 16px;
@@ -68,7 +75,7 @@ body {
 }
 
 .dropbtn:hover {
-    background-color: #3e8e41;
+    background-color: #1e5fc2;
 }
 
 .dropdown-content a {
@@ -80,4 +87,14 @@ body {
 
 .dropdown-content a:hover {
     background-color: #f1f1f1;
+}
+
+.dropbtn,
+.a-navbar {
+    transition: background-color 0.3s ease-in-out;
+}
+
+.dropbtn:hover,
+.a-navbar:hover {
+    background-color: #1e5fc2;
 }
