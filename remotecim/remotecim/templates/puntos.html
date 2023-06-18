@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="h1-historial">PUNTOS ALMACENADOS</h1>
+  <div class="table-container">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre Posición</th>
+          <th>Estación</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for posicion in posiciones %}
+          <tr>
+            <td>{{ posicion.id_posicion }}</td>
+            <td>{{ posicion.nombre_posicion }}</td>
+            <td>{{ posicion.id_estacion }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

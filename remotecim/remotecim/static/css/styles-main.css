@@ -1,14 +1,22 @@
-td {
-    background: #2d7aff;
-    cursor: pointer;
+a {
+    text-decoration: none;
+    color: white;
 }
 
-.btn-next {
-    background: greenyellow;
+td {
+    background: gray;
+    cursor: pointer;
 }
 
 .btn-add {
     background: greenyellow;
+}
+
+.btn-main {
+    cursor: pointer;
+    margin-top: 1px;
+    width: 63%;
+    background-color: greenyellow;
 }
 
 .container-main {
@@ -25,15 +33,16 @@ td {
 }
 
 .container-botonera {
-    margin: 22px auto;
+    margin: 0 auto;
     text-align: center;
     width: 90%;
     height: 90%;
-    background-color: black;
+    background-color: #333;
+    border: 5px solid black;
 }
 
 .container-botonera input {
-    margin: 10px auto;
+    margin: 0 auto;
     text-align: center;
     width: 60%;
     height: 6%;
@@ -45,17 +54,35 @@ td {
     text-align: center;
     width: 90%;
     height: 90%;
-    background-color: black;
+    background-color: #333;
 }
 
 .h1-botonera {
-    background-color: greenyellow;
+    background-color: #EAEAEA;
     color: black;
 }
 
+.header-rutinas {
+    color: white;
+}
+
 .monitoreo {
+    width: 25%;
+    border: 1px solid black;
+}
+
+.monitoreo video {
+    width: 100%;
+    height: auto;
+    max-width: 320px;
+    max-height: 200px;
+    border: 2px solid black;
+}
+
+#myTable {
+    text-align: center;
     margin: 0 auto;
-    width: 20%;
+    width: 70%;
 }
 
 .rutinas {
@@ -89,14 +116,14 @@ td {
     height: 60px;
 }
 
-.th-historial {
-    background: #2d7aff;
+.th-rutinas {
     color: white;
 }
 
 #screen-botonera {
     text-align: right;
     text-transform: uppercase;
+    width: 62%;
 }
 
 
@@ -125,4 +152,22 @@ td {
 
 .carousel-container.active .carousel-item:last-child {
     transform: translateX(0);
+}
+
+#modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.form-group {
+    display: inline-block;
+    margin-right: 10px;
 }

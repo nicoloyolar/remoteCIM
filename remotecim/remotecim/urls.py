@@ -15,28 +15,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from .views import login_view, home_view, main_view, logout_view, ConnectDeviceView, ConnectDevice2View, xyz, open, ejes, close, home, con, coff, modo
+from .views import crear_posicion, login_view, home_view, historial_view, horario_view, main_view, register_view, logout_view, puntos_view, send_message, users_view, ConnectDeviceView, ConnectDevice2View, ConnectDevice3View, SolicitarHorarioView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', login_view, name = 'login'),
+    path('crear_posicion/', crear_posicion, name='crear_posicion'),
     path('logout/', logout_view, name = 'logout'),
     path('home/', home_view, name = 'home'),
-    path('register/', home_view, name = 'register'),
+    path('historial/', historial_view, name = 'historial'),
+    path('horario/',  SolicitarHorarioView.as_view(), name = 'horario'),
+    path('registro/', register_view, name = 'registro'),
+    path('vista_usuarios/', users_view, name = 'vista_usuarios'),
     path('main/', main_view, name='main'),
     path('connect-device/<str:device_id>/', ConnectDeviceView.as_view(), name='connect_device'),
     path('connect-device/<str:device_id>/', ConnectDevice2View.as_view(), name='connect_device'),
-    path('xyz/<str:device_id>/', xyz.as_view(), name='xyz'),
-    path('ejes/<str:device_id>/', ejes.as_view(), name='ejes'),
-    path('open/<str:device_id>/', open.as_view(), name='open'),
-    path('close/<str:device_id>/', close.as_view(), name='close'),
-    path('home/<str:device_id>/', home.as_view(), name='home'),
-    path('con/<str:device_id>/', con.as_view(), name='con'),
-    path('coff/<str:device_id>/', coff.as_view(), name='coff'),
-    path('modo/<str:device_id>/', modo.as_view(), name='modo'),
-    
-
-
+    path('connect-device/<str:device_id>/', ConnectDevice3View.as_view(), name='connect_device'),
+    path('puntos/', puntos_view, name='puntos'),
+    path('send_message/', send_message, name='send_message'),
+    path('solicitar_horario/', SolicitarHorarioView.as_view(), name='solicitar_horario'),
 ]
 
 

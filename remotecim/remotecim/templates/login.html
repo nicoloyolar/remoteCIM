@@ -3,41 +3,12 @@
 {% load static %}
 
 {% block content %}
-<form method="post" action="{% url 'login' %}" class="login-form" id="login-form">
-  {% csrf_token %}
-  <div class="container-login">
-      <img class="img-login" src="{% static 'images/ubb.png' %}" alt="logo UBB">
-      <h4 class="login-title">Ingrese sus datos</h4>
-      {% if error_message %}
-      <input type="hidden" id="error_message" value="{{ error_message }}">
-      {% endif %}
-      <div class="input-wrapper">
-          <input autocomplete="off" type="text" class="input-login" placeholder="Ingrese su nombre" name="username" required>
-          <i class="fas fa-user input-icon"></i>
-      </div>
-      <div class="input-wrapper">
-          <input autocomplete="off" type="password" class="input-login" placeholder="Ingrese su clave" name="password" required>
-          <i class="fas fa-lock input-icon"></i>
-      </div>
-      <a href=""><h4 class="login-title">¿Olvidó su contraseña?</h4></a>
-      <input type="submit" class="btn-login" value="Ingresar" onclick="validateLogin(event)">
-      <a href=""><h4 class="login-title">Manual de Usuario</h4></a>
-  </div>
-</form>
-
-{% if error_message %}
-<script>
-  window.onload = function() {
-    var errorMessage = document.getElementById('error_message').value;
-    if (errorMessage) {
-      Swal.fire({
-        title: 'Error',
-        text: errorMessage,
-        icon: 'error',
-        confirmButtonText: 'OK'
-      });
-    }
-  };
-</script>
-{% endif %}
+  <h2 class="h2-login">INICIAR SESIÓN</h2>
+  
+  <form method="post">
+    <img src="{% static 'images/ubb.png' %}" alt="Logo UBB" class="img-login">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Iniciar sesión</button>
+  </form>
 {% endblock %}

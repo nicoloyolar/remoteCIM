@@ -8,115 +8,146 @@
     <div class="container-main2">
         <div class="carousel-container">
             <!-- Teach Pendant -->
-            <div class="carousel-item">
+            <div class="carousel-item" id="section-botonera">
                 <div class="container-main">    
                     <div class="container-botonera">
                         <h1 class="h1-botonera">Teach Pendant</h1>
                         <input type="text" id="screen-botonera" disabled>
                         <table class="teach-pendant">
                             <tr>
-                                <td><a href="{% url 'xyz' 'device1' %}" onclick="changeInputValue(this)" id="xyz">XYZ</a></td>
-                                <td><a href="{% url 'ejes' 'device1' %}" onclick="changeInputValue(this)" id="ejes">Ejes</a></td>
-                                <td><a onclick="changeInputValue(this)" id="velocidad">Velocidad</a></td>
-                                <td><a href="{% url 'con' 'device1' %}" onclick="changeInputValue(this)" id="con">Control ON</a></td>
-                                <td><a href="{% url 'coff' 'device1' %}" onclick="changeInputValue(this)" id="coff">Control OFF</a></td>
+                                <td><button onclick="changeInputValue(this)">XYZ</button></td>
+                                <td><button onclick="changeInputValue(this)">Ejes</button></td>
+                                <td><button onclick="changeInputValue(this)">Velocidad</button></td>
+                                <td><button onclick="changeInputValue(this)">Control On</button></td>
+                                <td><button onclick="changeInputValue(this)">Control Off</button></td>
                             </tr>
                             <tr>
-                                <td><a onclick="changeInputValue(this)" id="b1">+X/+Q1</a></td>
-                                <td><a onclick="changeInputValue(this)" id="b2">+Y/+Q2</a></td>
-                                <td><a onclick="changeInputValue(this)" id="b3">+Z/+Q3</a></td>
-                                <td><a onclick="changeInputValue(this)" id="b4">+Q4/PITCH</a></td>
-                                <td><a onclick="changeInputValue(this)" id="b5">+Q5/ROLL</a></td>
+                                <td><button onclick="changeInputValue(this)">+X/+Q1</button></td>
+                                <td><button onclick="changeInputValue(this)">+Y/+Q2</button></td>
+                                <td><button onclick="changeInputValue(this)">+Z/+Q3</button></td>
+                                <td><button onclick="changeInputValue(this)">+Q4/PITCH</button></td>
+                                <td><button onclick="changeInputValue(this)">+Q5/ROLL</button></td>
                             </tr>
                             <tr>
-                                <td><a onclick="changeInputValue(this)" id="b6">-X/-Q1</a></td>
-                                <td><a onclick="changeInputValue(this)" id="b7">-Y/-Q2</a></td>
-                                <td><a onclick="changeInputValue(this)" id="b8">-Z/-Q3</a></td>
-                                <td><a onclick="changeInputValue(this)" id="b9">-Q4/PITCH</a></td>
-                                <td><a onclick="changeInputValue(this)" id="b10">-Q5/ROLL</a></td>
+                                <td><button onclick="changeInputValue(this)">-X/-Q1</button></td>
+                                <td><button onclick="changeInputValue(this)">-Y/-Q2</button></td>
+                                <td><button onclick="changeInputValue(this)">-Z/-Q3</button></td>
+                                <td><button onclick="changeInputValue(this)">-Q4/PITCH</button></td>
+                                <td><button onclick="changeInputValue(this)">-Q5/ROLL</button></td>
                             </tr>
                             <tr>
-                                <td><a href="{% url 'modo' 'device1' %}" onclick="changeInputValue(this)" id="manual/directo">Manual/Directo</a></td>
-                                <td><a href="{% url 'home' 'device1' %}" onclick="changeInputValue(this)" id="home">Home</a></td>
-                                <td><a href="{% url 'open' 'device1' %}" onclick="changeInputValue(this)" id="open">Open</a></td>
-                                <td><a href="{% url 'close' 'device1' %}" onclick="changeInputValue(this)" id="close">Close</a></td>
-                                <td><a onclick="changeInputValue(this)" id="save">Save</a></td>
+                                <td><button onclick="changeInputValue(this)">Manual/Directo</button></td>
+                                <td><button onclick="changeInputValue(this)">home</button></td>
+                                <td><button onclick="changeInputValue(this)">open</button></td>
+                                <td><button onclick="changeInputValue(this)">close</button></td>
+                                <td><button id="open-modal">Crear Posición</button></td>
                             </tr>
-                       
                         </table>
+                        <button onclick="showSection('rutinas')" class="btn-main">Rutinas</button>
                     </div>
                 </div>
             </div>  
-            
+
+            <div id="modal" style="display: none;">
+                <h1 style="text-align: center;">Crear Posición</h1>
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label>Nombre Punto</label>
+                        <select name="nombre_punto">
+                            {% for letra in "ABCDE" %}
+                                <option value="{{ letra }}">{{ letra }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Valor Punto</label>
+                        <select name="valor_punto">
+                            {% for num in numeros %}
+                                <option value="{{ num }}">{{ num }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <button type="submit">Guardar</button>
+                    <button type="button" onclick="cerrarModal()">Salir</button>
+                </form>
+            </div>
+
+
             <!-- Rutinas -->
-            <div class="carousel-item">
+            <div class="carousel-item" id="section-rutinas">
                 <div class="container-main">    
                     <div class="container-rutinas">
                         <h1 class="h1-botonera">Rutinas</h1>
-                        <table id="myTable" class="rutinas">
-                            <thead>
-                                <tr>
-                                    <th>Comando</th>
-                                    <th>Eliminar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <select>
-                                            <option value="option1">home</option>
-                                            <option value="option2">moved 0</option>
-                                            <option value="option3">moved 00</option>
-                                            <option value="option3">movel</option>
-                                            <option value="option3">moveld</option>
-                                            <option value="option3">open</option>
-                                            <option value="option3">close</option>
-                                        </select>
-                                    </td>
-                                    <td><a href="#" onclick="deleteRow(this)">Eliminar</a></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <select>
-                                            <option value="option1">home</option>
-                                            <option value="option2">moved 0</option>
-                                            <option value="option3">moved 00</option>
-                                            <option value="option3">movel</option>
-                                            <option value="option3">moveld</option>
-                                            <option value="option3">open</option>
-                                            <option value="option3">close</option>
-                                        </select>
-                                    </td>
-                                    <td><a href="#" onclick="deleteRow(this)">Eliminar</a></td>
-                                </tr>
-                                <tr id="new-row" style="display: none">
-                                    <td><input type="text" name="new-data1"></td>
-                                    <td><input type="text" name="new-data2"></td>
-                                    <td>
-                                    <select name="new-select2">
-                                        <option value="option1">home</option>
-                                        <option value="option2">moved 0</option>
-                                        <option value="option3">moved 00</option>
-                                        <option value="option3">movel</option>
-                                        <option value="option3">moveld</option>
-                                        <option value="option3">open</option>
-                                        <option value="option3">close</option>
+                        <button onclick="addRow()">Agregar fila</button>
+                        <table id="myTable">
+                        <thead>
+                            <tr>
+                                <th class="header-rutinas">Comando</th>
+                                <th class="header-rutinas">Punto</th>
+                                <th class="header-rutinas">Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select>
+                                    <option value="home">home</option>
+                                    <option value="option2">moved 0</option>
+                                    <option value="option3">moved 00</option>
+                                    <option value="option4">movel</option>
+                                    <option value="option5">moveld</option>
+                                    <option value="open">open</option>
+                                    <option value="close">close</option>
                                     </select>
-                                    </td>
-                                    <td><a href="#" onclick="addRow()">Agregar</a></td>
-                                </tr>
-                            </tbody>
+                                </td>
+                                <td>
+                                    <select>
+                                        {% for user in usuarios %}
+                                        <option value="{{ user.nombre }}">{{ user.nombre }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                            <td>
+                                <a href="#" onclick="deleteRow(this)">Eliminar</a>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select>
+                                    <option value="home">home</option>
+                                    <option value="option2">moved 0</option>
+                                    <option value="option3">moved 00</option>
+                                    <option value="option4">movel</option>
+                                    <option value="option5">moveld</option>
+                                    <option value="open">open</option>
+                                    <option value="close">close</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select>
+                                        {% for user in usuarios %}
+                                        <option value="{{ user.nombre }}">{{ user.nombre }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                                <td>
+                                <a href="#" onclick="deleteRow(this)">Eliminar</a>
+                            </td>
+                            </tr>
+                        </tbody>
                         </table>
-                        <button class="btn-add" onclick="showNewRow()">+</button>
+                        <button onclick="ejecutarRutina()" class="btn-main">Ejecutar Rutina</button>
+                        <button onclick="showSection('botonera')" class="btn-main">Botonera</button>
                     </div>
                 </div>
             </div>
-            <div class="carousel-item">
-            </div>
         </div>
-        <button type="button" class="btn btn-primary" data-slide="next">Next</button>
-        
-        <!-- monitoreo -->
+
+    <!-- monitoreo -->
         <table class="monitoreo">
             <thead>
                 <tr class="row-header">
@@ -125,42 +156,25 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><video id="video1" width="320" height="200" autoplay></video></td>
+                    <td draggable="true"><video class="monitor-video" id="video1" autoplay></video></td>
                 </tr>
                 <tr>
-                    <td><video id="video2" width="320" height="200" autoplay></video></td>
+                    <td draggable="true"><video class="monitor-video" id="video2" autoplay></video></td>
                 </tr>
                 <tr>
-                    <td><video id="video3" width="320" height="200" autoplay></video></td>
+                    <td draggable="true"><video class="monitor-video" id="video3" autoplay></video></td>
                 </tr>
             </tbody>
         </table>
-    </div>
+
   </body>
 </html>
 
-<script>
-    const video1 = document.getElementById('video1');
-    const video2 = document.getElementById('video2');
-    const video3 = document.getElementById('video3');
-
-    navigator.mediaDevices.getUserMedia({ video: true })
-    .then(function(stream) {
-        video1.srcObject = stream;
-        video2.srcObject = stream;
-        video3.srcObject = stream;
-    })
-    .catch(function(error) {
-        console.log('Error accessing media devices.', error);
-    });
-</script>
-
-<script>
-    function changeInputValue(element) {
-        var input = document.getElementById("screen-botonera");
-        input.value = element.innerText;
-    }
-</script>
-
+<script src="{% static 'js/botonera.js' %}"></script>
+<script src="{% static 'js/ejecutar_rutina.js' %}"></script>
+<script src="{% static 'js/guardar-punto.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/rutinas.js' %}"></script>
+<script src="{% static 'js/monitoreo.js' %}"></script>
 
 {% endblock %}
