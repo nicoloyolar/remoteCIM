@@ -20,6 +20,12 @@ from django.utils import timezone
 class ConnectDeviceView(View):
     def get(self, request, device_id):
         try:
+            ultima_estacion = request.GET.get('ultima_estacion')
+            if ultima_estacion:
+                usuario = request.user  # Obtener el usuario actual
+                usuario.ultima_estacion = ultima_estacion
+                usuario.save()
+                
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 s.settimeout(5)
                 s.connect((CONNECTION_IP1, 12345))
@@ -28,7 +34,7 @@ class ConnectDeviceView(View):
                 estacion.disponibilidad = False
                 estacion.save()
         except (socket.timeout, ConnectionError):
-            return render(request, 'home.html', {'error_message': 'No se ha podido realizar la conexión. Por favor, inténtalo nuevamente.'})
+            return render(request, 'home.html', {'error_message': 'No se ha podido realizar la conexión con la estación solicitada. Por favor, inténtalo nuevamente.'})
 
         return redirect('home')
 
@@ -36,23 +42,31 @@ class ConnectDevice2View(View):
     def get(self, request, device_id):
         try:
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.settimeout(5)
                 s.connect((CONNECTION_IP2, 12345))
-                s.sendall(b'estacion2')
-        except ConnectionError:
-            return redirect('main')
-        
-        return redirect('main')
+                s.sendall(b'home')
+                estacion = EstacionDeTrabajo.objects.get(id_estacion=device_id)
+                estacion.disponibilidad = False
+                estacion.save()
+        except (socket.timeout, ConnectionError):
+            return render(request, 'home.html', {'error_message': 'No se ha podido realizar la conexión con la estación solicitada. Por favor, inténtalo nuevamente.'})
+
+        return redirect('home')
     
 class ConnectDevice3View(View):
     def get(self, request, device_id):
         try:
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.settimeout(5)
                 s.connect((CONNECTION_IP3, 12345))
-                s.sendall(b'estacion3')
-        except ConnectionError:
-            return redirect('main')
-        
-        return redirect('main')
+                s.sendall(b'home')
+                estacion = EstacionDeTrabajo.objects.get(id_estacion=device_id)
+                estacion.disponibilidad = False
+                estacion.save()
+        except (socket.timeout, ConnectionError):
+            return render(request, 'home.html', {'error_message': 'No se ha podido realizar la conexión con la estación solicitada. Por favor, inténtalo nuevamente.'})
+
+        return redirect('home')
 
 class SolicitarHorarioView(View):
     def get(self, request):
