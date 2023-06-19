@@ -4,23 +4,36 @@
 
 {% block content %}
     <div class="card-container">
-
-      {% for estacion in estaciones %}
-      <div class="card">
-        <h2>{{ estacion.descripcion }}</h2>
-        <a href="{% url 'connect_device' estacion.id_estacion %}">
-          <img src="{% static 'images/almacenamiento.jpeg' %}" alt="Scorbot">
-        </a>
-        <h6>{{ estacion.descripcion }}</h6>
-        <div class="{% if estacion.disponibilidad %}disponible{% else %}ocupada{% endif %}">
-          {% if estacion.disponibilidad %}
-            <p>DISPONIBLE</p>
-          {% else %}
-            <p>OCUPADA</p>
-          {% endif %}
+        
+        {% for estacion in estaciones %}
+        <div class="card">
+          <h2>{{ estacion.descripcion }}</h2>
+          <a href="{% url 'connect_device' estacion.id_estacion %}">
+            {% if estacion.id_estacion == 1 %}
+              <img src="{% static 'images/almacenamiento.jpeg' %}" alt="Scorbot">
+            {% elif estacion.id_estacion == 2 %}
+              <img src="{% static 'images/mecanizado.jpeg' %}" alt="Scorbot">
+            {% elif estacion.id_estacion == 3 %}
+              <img src="{% static 'images/control-calidad.jpeg' %}" alt="Scorbot">
+            {% endif %}
+          </a>
+          <h6>{{ estacion.descripcion }}</h6>
+          <div class="{% if estacion.disponibilidad %}disponible{% else %}ocupada{% endif %}">
+            {% if estacion.disponibilidad %}
+              <p>DISPONIBLE</p>
+            {% else %}
+              <p>OCUPADA</p>
+            {% endif %}
+          </div>
         </div>
-      </div>
-      {% endfor %}
+        {% endfor %}
 
     </div>
+    {% if error_message %}
+        <script>
+            alert('{{ error_message }}');
+            window.location.href = '{% url 'home' %}';
+        </script>
+    {% endif %}
+    
 {% endblock %}

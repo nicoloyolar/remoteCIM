@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
+from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import user_passes_test
 from .forms import LoginForm, RegistroForm, PosicionForm
@@ -20,16 +21,16 @@ class ConnectDeviceView(View):
     def get(self, request, device_id):
         try:
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-                s.settimeout(5) 
+                s.settimeout(5)
                 s.connect((CONNECTION_IP1, 12345))
                 s.sendall(b'home')
                 estacion = EstacionDeTrabajo.objects.get(id_estacion=device_id)
                 estacion.disponibilidad = False
                 estacion.save()
         except (socket.timeout, ConnectionError):
-            return redirect('main')
+            return render(request, 'home.html', {'error_message': 'No se ha podido realizar la conexión. Por favor, inténtalo nuevamente.'})
 
-        return redirect('main')
+        return redirect('home')
 
 class ConnectDevice2View(View):
     def get(self, request, device_id):

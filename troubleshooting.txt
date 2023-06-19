@@ -1,4 +1,8 @@
-TROUBLESHOOTING DJANGO
+TO DO LIST:
+
+- LISTA DE PUNTOS EN VISTA "PUNTOS" - LLAMAR DESDE LA BASE DE DATOS DE MAIN
+- INTEGRAR SISTEMA DE RUTINAS (ALMACENAR PUNTOS Y LLAMARLOS DESDE LA SECCION DE RUTINAS)
+- ELIMINAR CUENTAS DE USUARIO ANTERIORES (UTILIZAR SOLO LAS NUEVAS CON LAS QUE SE PUEDE INGRESAR)
 
 Este documento detalla el proceso de desarrollo de la aplicación "Remote CIM".
 Principalmente, esta aplicación consta con tres roles de usuarios: 
@@ -23,47 +27,65 @@ Principalmente, esta aplicación consta con tres roles de usuarios:
                     perfil o ver sus propios datos. No debería ser capaz de crear, 
                     modificar o eliminar objetos creados por otros usuarios.
 
-En la administración de django se crean tres grupos, uno para cada categoría de usuario.
 Las vistas de la aplicación son las siguientes:
 
     1.- Login -> Ventana principal de la aplicación
     2.- Home -> Se accede desde el login
     3.- Main -> Solo se accede desde la selección de la estación
-    4.- Registro Usuarios -> Se accede desde navbar de una lista desplegable "Administrador"
-    5.- Mantenedor Usuarios -> Se accede desde navbar de una lista desplegable "Administrador"
-    6.- Registro Asignaturas
-    7.- Mantenedor Asignaturas
+    4.- Registro Usuarios -> Se accede desde navbar de una lista desplegable. rol "Profesor" y "Administrador"
+    5.- Mantenedor Usuarios -> Se accede desde navbar de una lista desplegable. rol "Profesor" y "Administrador" - > SE DEBE INTEGRAR CRUD DE USUARIOS 
+    6.- Registro Asignaturas -> not yet
+    7.- Mantenedor Asignaturas -> not yet 
     8.- Historial -> Se accede desde navbar
     9.- Solicitud Horarios -> Se accede desde navbar
 
-    - El administrador tendrá acceso a:
+- El administrador tendrá acceso a:
 
-        1.- Login
-        2.- Home
-        3.- Main
-        4.- Registro Usuarios
-        5.- Mantenedor Usuarios
-        6.- Registro Asignaturas
-        7.- Mantenedor Asignaturas
-        8.- Historial
-        9.- Solicitud Horarios
+        1.- Login -> si
+        2.- Home -> si 
+        3.- Main -> si
+        4.- Registro Usuarios -> si 
+        5.- Mantenedor Usuarios -> si  
+        6.- Registro Asignaturas -> not yet
+        7.- Mantenedor Asignaturas -> not yet
+        8.- Historial -> si
+        9.- Solicitud Horarios -> si
 
     - El profesor tendrá acceso a:
 
-        1.- Login
-        2.- Home
-        3.- Main
-        7.- Mantenedor Asignaturas
-        8.- Historial 
-        9.- Solicitud Horarios
+        1.- Login -> si 
+        2.- Home -> si 
+        3.- Main -> si 
+        7.- Mantenedor Asignaturas -> not yet 
+        8.- Historial -> si 
+        9.- Solicitud Horarios -> si 
 
     - El estudiante tendrá acceso a:
 
-        1.- Login
-        2.- Home
-        3.- Main
-        8.- Historial 
-        9.- Solicitud Horarios
+        1.- Login -> si 
+        2.- Home -> si 
+        3.- Main -> si 
+        8.- Historial -> si 
+        9.- Solicitud Horarios -> si 
+
+Se crean los modelos para las tablas de la base de datos, considerando el 
+entorno de base de datos por defecto de Django.
+Hasta el momento solo se puede ingresar con una sola cuenta, que corresponde
+a la cuenta creada mediante "python manage.py createsuperuser":
+
+    - nicolas.iloyolar@gmail.com
+    - n3k4l1S!!! 
+
+Finalmente, se logran integrar las cuentas de usuario que se registran en el login de 
+la plataforma, concretando la validación y autenticación de usuarios correctamente
+
+    - user: otopp@gmail.com
+    - pass: vale123
+
+TROUBLESHOOTING DJANGO
+
+Para evitar la importación circular no se deben importar los modelos dentro del
+mismo archivo donde el archivo 
 
 Librerías:
 
@@ -94,19 +116,20 @@ Para crear una cuenta de superusuario se debe ejecutar el siguiente comando:
 Luego, se puede acceder al administrador de django con la siguiente ruta de navegación:
     - http://127.0.0.1:8000/admin/
 
-- Los superusers son:
-    - user: nicolas
+- El usuario administrador del proyecto de Django es:
+
+    - user: admin-remotecim
     - password: n3k4l1S!!!
 
-    - user: alexis_villa
-    - password: 1l2x3s123
+- Ahora, se debe tener una cuenta de administrador de la plataforma remotecim:
 
-- Los usuarios estandar son:
-    - user: aerubio
-    - password: 1erubi0123
+    - user: admin-remotecim
+    - password: n3k4l1S!!!
 
-    - user: luis_vera
-    - password: L52SV2r1!
+Considerar que la cuenta de administración de Django es solo para administrar el backend
+de la aplicación.
+La plataforma remotecim tiene sus propios roles de usuario que hay que declarar y definir
+detalladamente en software.
 
 La carpeta template debe estar al mismo nivel que 'manage.py'.
 El comando 'migrate auth' es utilizado para sincronizar el esquema de la base de datos

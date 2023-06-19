@@ -3,7 +3,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
     width: 80%;
-    margin: 5% auto;
+    margin: 1.5% auto;
 }
 
 .card {
@@ -29,13 +29,14 @@
 }
 
 .card h6 {
-    font-size: 14px;
+    font-size: 16px;
     color: white;
 }
 
 .card img {
-    width: 50%;
-    height: 70%;
+    width: 70%;
+    height: 80%;
+    object-fit: cover;
 }
 
 .cards-title {
@@ -47,12 +48,16 @@
     border: 3px solid black;
     border-radius: 5px;
     width: 50%;
-    margin: 5% auto;
+    margin: 0 auto;
     background-color: greenyellow;
     color: black;
 }
 
 .ocupado {
+    border: 3px solid black;
+    border-radius: 5px;
+    width: 50%;
+    margin: 0 auto;
     background-color: red;
     color: white;
 }
@@ -81,4 +86,20 @@
         padding: 20px;
         box-sizing: border-box;
     }
+}
+
+.messages {
+    list-style: none;
+    margin: 10px 0;
+    padding: 0;
+}
+
+.messages li {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.messages.error {
+    background-color: #ffcccc;
+    color: #cc0000;
 }
