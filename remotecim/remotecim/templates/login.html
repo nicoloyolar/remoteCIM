@@ -8,7 +8,10 @@
   <form method="post">
     <img src="{% static 'images/ubb.png' %}" alt="Logo UBB" class="img-login">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Iniciar sesión</button>
+    {{ form.email.label_tag }}
+    <input type="email" name="email" id="id_email" autocomplete="off" required>
+    {{ form.password.label_tag }}
+    {{ form.password }}
+    <button class="btn-login" type="submit">Iniciar sesión</button>
   </form>
 {% endblock %}

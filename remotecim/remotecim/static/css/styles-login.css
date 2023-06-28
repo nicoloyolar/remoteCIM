@@ -15,7 +15,6 @@ footer {
 }
 
 .btn-login:hover {
-    transition: 1s;
     background: #2d7aff;
     cursor: pointer;
     color: white;
@@ -79,22 +78,4 @@ footer {
         width: 45%;
         margin-bottom: 0;
     }
-}
-
-
-/* estilos iconos*/
-
-.input-wrapper {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-}
-
-.input-icon {
-    position: absolute;
-    top: 70%;
-    transform: translateY(-50%);
-    left: 225px;
-    font-size: 1.2em;
-    color: black;
 }
