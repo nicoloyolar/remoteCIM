@@ -15,5 +15,5 @@ function sendSocketMessage(buttonValue) {
 function changeInputValue(button) {
     var buttonValue = button.innerText;
     document.getElementById('screen-botonera').value = buttonValue;
-    sendSocketMessage(buttonValue); // Enviar el valor del botón como mensaje
+    sendSocketMessage(buttonValue);
 }
