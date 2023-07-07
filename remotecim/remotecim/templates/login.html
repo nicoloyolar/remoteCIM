@@ -9,9 +9,24 @@
     <img src="{% static 'images/ubb.png' %}" alt="Logo UBB" class="img-login">
     {% csrf_token %}
     {{ form.email.label_tag }}
-    <input type="email" name="email" id="id_email" autocomplete="off" required>
+    {{ form.email }}
+    {% for error in form.email.errors %}
+      <p class="error">{{ error }}</p>
+    {% endfor %}
+    <br>
     {{ form.password.label_tag }}
     {{ form.password }}
+    {% for error in form.password.errors %}
+      <p class="error">{{ error }}</p>
+    {% endfor %}
+    <br>
+    {% for error in form.non_field_errors %}
+      <p class="error">{{ error }}</p>
+    {% endfor %}
+    {% if form.errors and not form.non_field_errors %}
+      <p class="error">Credenciales inválidas</p>
+    {% endif %}
+    <br>
     <button class="btn-login" type="submit">Iniciar sesión</button>
   </form>
 {% endblock %}

@@ -79,9 +79,36 @@ class SolicitarHorarioView(View):
     def post(self, request):
         fecha_hora_inicio = request.POST.get('fecha_hora_inicio')
         fecha_hora_fin = request.POST.get('fecha_hora_fin')
-        
-        return redirect('home')
 
+        usuario = Usuario.objects.create(
+            fecha_hora_inicio=fecha_hora_inicio,
+            fecha_hora_fin=fecha_hora_fin,
+            horario_confirmado=False
+        )
+
+        def horario_disponible(usuario):
+            fecha_hora_inicio = usuario.fecha_hora_inicio
+            fecha_hora_fin = usuario.fecha_hora_fin
+            
+            horarios_solapados = Usuario.objects.filter(
+                fecha_hora_inicio__lt=fecha_hora_fin,
+                fecha_hora_fin__gt=fecha_hora_inicio,
+                horario_confirmado=True
+            ).exists()
+
+            return not horarios_solapados
+
+        if usuario:
+            if horario_disponible(usuario):
+                messages.success(request, 'La solicitud de horario se ha enviado correctamente.')
+            else:
+                messages.error(request, 'El horario seleccionado no está disponible.')
+
+            return redirect('home')
+        else:
+            messages.error(request, 'Ocurrió un error al enviar la solicitud de horario.')
+            return redirect('solicitar_horario')
+        
 def crear_posicion(request):
     if request.method == 'POST':
         form = PosicionForm(request.POST)
@@ -134,12 +161,8 @@ def home_view(request):
 def historial_view(request):
     usuarios = Usuario.objects.all() 
     if request.user.is_authenticated:
-        nombre = request.user.nombre
         
-        if nombre == 'valentina':
-            usuarios = Usuario.objects.filter(nombre='valentina')
-        else:
-            usuarios = Usuario.objects.all()
+        usuarios = Usuario.objects.all()
         
         return render(request, 'historial.html', {'usuarios': usuarios})
     

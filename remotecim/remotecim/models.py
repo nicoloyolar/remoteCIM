@@ -32,6 +32,8 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     fecha_hora_inicio = models.DateTimeField(null=True, blank=True)
     fecha_hora_fin = models.DateTimeField(null=True, blank=True)
     
+    horario_confirmado = models.BooleanField(default=False)
+    
     ultima_estacion = models.CharField(max_length=255, choices=(
         ('almacenamiento', 'Almacenamiento'),
         ('mecanizado', 'Mecanizado'),
