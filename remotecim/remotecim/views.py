@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import user_passes_test
 from .forms import LoginForm, RegistroForm, PosicionForm
 from .models import Usuario, Reserva, EstacionDeTrabajo, Posicion
 from .decorators import administrador_required, profesor_required, estudiante_required
-from .settings import CONNECTION_IP1, CONNECTION_IP2, CONNECTION_IP3
+from .settings import CONNECTION_IP1, CONNECTION_IP2, CONNECTION_IP3, PUERTO_SOCKET
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import socket
@@ -194,12 +194,9 @@ def main_view(request):
         return redirect('login')
 
 def puntos_view(request):
-    
-    if request.user.is_authenticated:
-        return render(request, 'puntos.html')
-    
-    else:
-        return redirect('login')
+
+    posiciones = Posicion.objects.all()
+    return render(request, 'puntos.html', {'posiciones': posiciones})
 
 def register_view(request):
     if request.method == 'POST':
@@ -223,13 +220,49 @@ def logout_view(request):
     return redirect('home')
 
 @csrf_exempt
-def send_message(request):
+def send_message_validada(request):
     if request.method == 'POST':
         message = request.POST.get('message')
         
         if message is None:  
             message = 'auto'
         
+        estacion_ip = CONNECTION_IP1
+        estacion_puerto = PUERTO_SOCKET
+
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.connect((estacion_ip, estacion_puerto))
+                s.sendall(message.encode())
+                response = s.recv(1024)  
+                response_message = response.decode() 
+                print(f"Respuesta recibida: {response_message}")
+
+            return JsonResponse({'status': 'ok'})
+        except ConnectionError:
+            return JsonResponse({'status': 'error'})
+
+    return JsonResponse({'status': 'error'})
+
+from django.shortcuts import render, redirect
+from .models import Posicion
+
+@csrf_exempt
+def send_message(request):
+    if request.method == 'POST':
+        message = request.POST.get('message')
+        nombre_punto = request.POST.get('nombre_punto')
+        valor_punto = request.POST.get('valor_punto')
+        
+        if message is None:  
+            message = 'auto'
+        
+        # Guardar el punto en la base de datos
+        nuevo_punto = Posicion(nombre_posicion=nombre_punto, coordenadas=valor_punto)
+        nuevo_punto.save()
+
+
+        # Luego, continúa con el código existente para enviar el mensaje por socket.
         estacion_ip = CONNECTION_IP1
         estacion_puerto = 12345
 
@@ -246,6 +279,7 @@ def send_message(request):
             return JsonResponse({'status': 'error'})
 
     return JsonResponse({'status': 'error'})
+
 
 def users_view(request):
     usuarios = Usuario.objects.all() 

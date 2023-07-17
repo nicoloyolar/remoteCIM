@@ -15,32 +15,32 @@
                         <input type="text" id="screen-botonera" disabled>
                         <table class="teach-pendant">
                             <tr>
-                                <td><button onclick="changeInputValue(this)">XYZ</button></td>
-                                <td><button onclick="changeInputValue(this)">Ejes</button></td>
-                                <td><button onclick="changeInputValue(this)">Velocidad</button></td>
-                                <td><button onclick="changeInputValue(this)">Control On</button></td>
-                                <td><button onclick="changeInputValue(this)">Control Off</button></td>
+                                <td><button onclick="changeInputValue(this)">xyz</button></td>
+                                <td><button onclick="changeInputValue(this)">joints</button></td>
+                                <td><button onclick="changeInputValue(this)">speed</button></td>
+                                <td><button onclick="changeInputValue(this)">con</button></td>
+                                <td><button onclick="changeInputValue(this)">coff</button></td>
                             </tr>
                             <tr>
-                                <td><button onclick="changeInputValue(this)">+X/+Q1</button></td>
-                                <td><button onclick="changeInputValue(this)">+Y/+Q2</button></td>
-                                <td><button onclick="changeInputValue(this)">+Z/+Q3</button></td>
-                                <td><button onclick="changeInputValue(this)">+Q4/PITCH</button></td>
-                                <td><button onclick="changeInputValue(this)">+Q5/ROLL</button></td>
+                                <td><button onclick="changeInputValue(this)">+x</button></td>
+                                <td><button onclick="changeInputValue(this)">+y</button></td>
+                                <td><button onclick="changeInputValue(this)">+z</button></td>
+                                <td><button onclick="changeInputValue(this)">+Q4</button></td>
+                                <td><button onclick="changeInputValue(this)">+Q5</button></td>
                             </tr>
                             <tr>
-                                <td><button onclick="changeInputValue(this)">-X/-Q1</button></td>
-                                <td><button onclick="changeInputValue(this)">-Y/-Q2</button></td>
-                                <td><button onclick="changeInputValue(this)">-Z/-Q3</button></td>
-                                <td><button onclick="changeInputValue(this)">-Q4/PITCH</button></td>
-                                <td><button onclick="changeInputValue(this)">-Q5/ROLL</button></td>
+                                <td><button onclick="changeInputValue(this)">-x</button></td>
+                                <td><button onclick="changeInputValue(this)">-y</button></td>
+                                <td><button onclick="changeInputValue(this)">-z</button></td>
+                                <td><button onclick="changeInputValue(this)">-Q4</button></td>
+                                <td><button onclick="changeInputValue(this)">-Q5</button></td>
                             </tr>
                             <tr>
-                                <td><button onclick="changeInputValue(this)">Manual/Directo</button></td>
+                                <td><button onclick="changeInputValue(this)">manual</button></td>
                                 <td><button onclick="changeInputValue(this)">home</button></td>
                                 <td><button onclick="changeInputValue(this)">open</button></td>
                                 <td><button onclick="changeInputValue(this)">close</button></td>
-                                <td><button id="open-modal">Crear Posición</button></td>
+                                <td><button id="open-modal">go position</button></td>
                             </tr>
                         </table>
                         <button onclick="showSection('rutinas')" class="btn-main">Rutinas</button>
@@ -50,7 +50,7 @@
 
             <div id="modal" style="display: none;">
                 <h1 style="text-align: center;">Crear Posición</h1>
-                <form method="POST" action="">
+                <form method="POST" action="{% url 'send_message' %}">
                     {% csrf_token %}
                     
                     <div class="form-group">
@@ -71,10 +71,11 @@
                         </select>
                     </div>
 
-                    <button type="submit">Guardar</button>
+                    <button type="submit" onclick="enviarSocketMessage()">Guardar</button>
                     <button type="button" onclick="cerrarModal()">Salir</button>
                 </form>
             </div>
+
 
 
             <!-- Rutinas -->

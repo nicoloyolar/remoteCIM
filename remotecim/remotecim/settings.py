@@ -26,6 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 CONNECTION_IP1 = '192.168.0.41'
 CONNECTION_IP2 = '192.168.0.42'
 CONNECTION_IP3 = '192.168.0.43'
+PUERTO_SOCKET = 12345
 
 DATABASES = {
     'default': {

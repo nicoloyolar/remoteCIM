@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+from .settings import CONNECTION_IP1
 
 class UsuarioManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -67,13 +68,12 @@ class Reserva(models.Model):
         return f"Reserva #{self.id_reserva}"
 
 class Posicion(models.Model):
-    id_posicion = models.AutoField(primary_key=True)
-    id_estacion = models.ForeignKey(EstacionDeTrabajo, on_delete=models.CASCADE)
     nombre_posicion = models.CharField(max_length=255)
     coordenadas = models.CharField(max_length=255)
 
     def __str__(self):
         return self.nombre_posicion
+
 
 class Rutina(models.Model):
     id_rutina = models.AutoField(primary_key=True)
