@@ -36,7 +36,7 @@ class ConnectDeviceView(View):
         except (socket.timeout, ConnectionError):
             return render(request, 'home.html', {'error_message': 'No se ha podido realizar la conexión con la estación solicitada. Por favor, inténtalo nuevamente.'})
 
-        return redirect('home')
+        return redirect('main')
 
 class ConnectDevice2View(View):
     def get(self, request, device_id):
@@ -126,6 +126,21 @@ def crear_posicion(request):
 
     return render(request, 'crear_posicion.html', {'form': form})
 
+def guardar_punto_view(request):
+    if request.method == 'POST':
+        nombre_punto = request.POST.get('nombre_punto')
+        valor_punto = request.POST.get('valor_punto')
+
+        if not nombre_punto or not valor_punto:
+            return JsonResponse({'error': 'Los campos del formulario deben estar completos.'}, status=400)
+
+        nuevo_punto = Posicion(nombre_posicion=nombre_punto, coordenadas=valor_punto)
+        nuevo_punto.save()
+
+        return redirect('main')
+
+    return JsonResponse({'error': 'Método no permitido.'}, status=405)
+
 @ensure_csrf_cookie
 @csrf_exempt
 def login_view(request):
@@ -194,9 +209,19 @@ def main_view(request):
         return redirect('login')
 
 def puntos_view(request):
+    if request.method == 'POST':
+        nombre_punto = request.POST.get('nombre_punto')
+        valor_punto = request.POST.get('valor_punto')
 
-    posiciones = Posicion.objects.all()
-    return render(request, 'puntos.html', {'posiciones': posiciones})
+        if not nombre_punto or not valor_punto:
+            return JsonResponse({'error': 'Los campos del formulario deben estar completos.'}, status=400)
+
+        nuevo_punto = Posicion(nombre_posicion=nombre_punto, coordenadas=valor_punto)
+        nuevo_punto.save()
+
+    puntos = Posicion.objects.all()
+    
+    return render(request, 'puntos.html', {'puntos': puntos})
 
 def register_view(request):
     if request.method == 'POST':
@@ -257,12 +282,9 @@ def send_message(request):
         if message is None:  
             message = 'auto'
         
-        # Guardar el punto en la base de datos
         nuevo_punto = Posicion(nombre_posicion=nombre_punto, coordenadas=valor_punto)
         nuevo_punto.save()
 
-
-        # Luego, continúa con el código existente para enviar el mensaje por socket.
         estacion_ip = CONNECTION_IP1
         estacion_puerto = 12345
 

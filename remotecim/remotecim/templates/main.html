@@ -22,25 +22,30 @@
                                 <td><button onclick="changeInputValue(this)">coff</button></td>
                             </tr>
                             <tr>
-                                <td><button onclick="changeInputValue(this)">+x</button></td>
-                                <td><button onclick="changeInputValue(this)">+y</button></td>
-                                <td><button onclick="changeInputValue(this)">+z</button></td>
-                                <td><button onclick="changeInputValue(this)">+Q4</button></td>
-                                <td><button onclick="changeInputValue(this)">+Q5</button></td>
+                                <td><button onclick="changeInputValue(this)">eluno</button></td>
+                                <td><button onclick="changeInputValue(this)">dos</button></td>
+                                <td><button onclick="changeInputValue(this)">tres</button></td>
+                                <td><button onclick="changeInputValue(this)">cuatro</button></td>
+                                <td><button onclick="changeInputValue(this)">cinco</button></td>
                             </tr>
                             <tr>
-                                <td><button onclick="changeInputValue(this)">-x</button></td>
-                                <td><button onclick="changeInputValue(this)">-y</button></td>
-                                <td><button onclick="changeInputValue(this)">-z</button></td>
-                                <td><button onclick="changeInputValue(this)">-Q4</button></td>
-                                <td><button onclick="changeInputValue(this)">-Q5</button></td>
+                                <td><button onclick="changeInputValue(this)">seis</button></td>
+                                <td><button onclick="changeInputValue(this)">siete</button></td>
+                                <td><button onclick="changeInputValue(this)">ocho</button></td>
+                                <td><button onclick="changeInputValue(this)">nueve</button></td>
+                                <td><button onclick="changeInputValue(this)">diez</button></td>
                             </tr>
                             <tr>
-                                <td><button onclick="changeInputValue(this)">manual</button></td>
+                                <td><button onclick="changeInputValue(this)">~</button></td>
                                 <td><button onclick="changeInputValue(this)">home</button></td>
                                 <td><button onclick="changeInputValue(this)">open</button></td>
                                 <td><button onclick="changeInputValue(this)">close</button></td>
                                 <td><button id="open-modal">go position</button></td>
+                            </tr>
+                            <tr>
+                                <td><button onclick="changeInputValue(this)">here</button></td>
+                                <td><button onclick="changeInputValue(this)">move</button></td>
+                                <td><button onclick="changeInputValue(this)">movel</button></td>
                             </tr>
                         </table>
                         <button onclick="showSection('rutinas')" class="btn-main">Rutinas</button>
@@ -49,14 +54,15 @@
             </div>  
 
             <div id="modal" style="display: none;">
+                <!-- Formulario para enviar el punto a guardar_punto -->
                 <h1 style="text-align: center;">Crear Posición</h1>
-                <form method="POST" action="{% url 'send_message' %}">
+                <form method="POST" action="{% url 'guardar_punto' %}">
                     {% csrf_token %}
                     
                     <div class="form-group">
                         <label>Nombre Punto</label>
                         <select name="nombre_punto">
-                            {% for letra in "ABCDE" %}
+                            {% for letra in "ABC" %}
                                 <option value="{{ letra }}">{{ letra }}</option>
                             {% endfor %}
                         </select>
@@ -71,10 +77,11 @@
                         </select>
                     </div>
 
-                    <button type="submit" onclick="enviarSocketMessage()">Guardar</button>
-                    <button type="button" onclick="cerrarModal()">Salir</button>
+                    <button onclick="changeInputValue(this)" type="submit">go position</button>
+                    <button type="button" onclick="cerrarModal()">salir</button>
                 </form>
             </div>
+
 
 
 

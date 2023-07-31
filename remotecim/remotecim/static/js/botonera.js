@@ -1,6 +1,6 @@
 function sendSocketMessage(buttonValue) {
     var xhr = new XMLHttpRequest();
-    var url = '/send_message/';
+    var url = '/send_message_validada/';
     var params = 'message=' + encodeURIComponent(buttonValue);
     xhr.open('POST', url, true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');

@@ -7,16 +7,16 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>Nombre Posición</th>
-          <th>Estación</th>
+          <th>Grupo</th>
+          <th>Nombre</th>
         </tr>
       </thead>
       <tbody>
-        {% for posicion in posiciones %}
+        {% for punto in puntos %}
           <tr>
-            <td>{{ posicion.id_posicion }}</td>
-            <td>{{ posicion.nombre_posicion }}</td>
-            <td>{{ posicion.id_estacion }}</td>
+            <td>{{ punto.id }}</td>
+            <td>{{ punto.nombre_posicion }}</td>
+            <td>{{ punto.coordenadas }}</td>
           </tr>
         {% endfor %}
       </tbody>

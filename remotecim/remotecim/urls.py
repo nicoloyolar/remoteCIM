@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from .views import crear_posicion, login_view, home_view, historial_view, horario_view, main_view, register_view, logout_view, puntos_view, send_message, users_view, ConnectDeviceView, ConnectDevice2View, ConnectDevice3View, SolicitarHorarioView
+from .views import crear_posicion, guardar_punto_view, login_view, home_view, historial_view, horario_view, main_view, register_view, logout_view, puntos_view, send_message_validada, users_view, ConnectDeviceView, ConnectDevice2View, ConnectDevice3View, SolicitarHorarioView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', login_view, name = 'login'),
     path('crear_posicion/', crear_posicion, name='crear_posicion'),
+    path('guardar_punto/', guardar_punto_view, name='guardar_punto'),
     path('logout/', logout_view, name = 'logout'),
     path('home/', home_view, name = 'home'),
     path('historial/', historial_view, name = 'historial'),
@@ -32,7 +33,7 @@ urlpatterns = [
     path('connect-device/<str:device_id>/', ConnectDevice2View.as_view(), name='connect_device2'),
     path('connect-device/<str:device_id>/', ConnectDevice3View.as_view(), name='connect_device3'),
     path('puntos/', puntos_view, name='puntos'),
-    path('send_message/', send_message, name='send_message'),
+    path('send_message/', send_message_validada, name='send_message'),
     path('solicitar_horario/', SolicitarHorarioView.as_view(), name='solicitar_horario'),
 ]
 
