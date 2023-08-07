@@ -40,11 +40,11 @@
                                 <td><button onclick="changeInputValue(this)">home</button></td>
                                 <td><button onclick="changeInputValue(this)">open</button></td>
                                 <td><button onclick="changeInputValue(this)">close</button></td>
-                                <td><button id="open-modal">go position</button></td>
+                                <td><button onclick="changeInputValue(this)">go position</button></td>
                             </tr>
                             <tr>
-                                <td><button onclick="changeInputValue(this)">here</button></td>
-                                <td><button onclick="changeInputValue(this)">move</button></td>
+                                <td><button id="open-modal">here</button></td>
+                                <td><button id="open-modal2">move</button></td>
                                 <td><button onclick="changeInputValue(this)">movel</button></td>
                             </tr>
                         </table>
@@ -54,7 +54,6 @@
             </div>  
 
             <div id="modal" style="display: none;">
-                <!-- Formulario para enviar el punto a guardar_punto -->
                 <h1 style="text-align: center;">Crear Posición</h1>
                 <form method="POST" action="{% url 'guardar_punto' %}">
                     {% csrf_token %}
@@ -77,13 +76,38 @@
                         </select>
                     </div>
 
-                    <button onclick="changeInputValue(this)" type="submit">go position</button>
+                    <button onclick="changeInputValue2(this)" type="submit">here</button>
                     <button type="button" onclick="cerrarModal()">salir</button>
                 </form>
             </div>
 
+            <div id="modal2" style="display: none;">
+                <h1 style="text-align: center;">Mover Posición</h1>
+                <form method="POST" action="{% url 'mover_punto' %}">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label>Nombre Punto</label>
+                        <select name="nombre_punto">
+                            {% for letra in "ABC" %}
+                                <option value="{{ letra }}">{{ letra }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
+                    <div class="form-group">
+                        <label>Valor Punto</label>
+                        <select name="valor_punto">
+                            {% for num in numeros %}
+                                <option value="{{ num }}">{{ num }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
+                    <button onclick="changeInputValue2(this)" type="submit">move</button>
+                    <button type="button" onclick="cerrarModal2()">salir</button>
+                </form>
+            </div>
 
             <!-- Rutinas -->
             <div class="carousel-item" id="section-rutinas">

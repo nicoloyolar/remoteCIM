@@ -17,3 +17,14 @@ function changeInputValue(button) {
     document.getElementById('screen-botonera').value = buttonValue;
     sendSocketMessage(buttonValue);
 }
+
+function changeInputValue2(button) {
+    var buttonName = button.innerText;
+    var nombrePunto = document.querySelector('[name="nombre_punto"]').value;
+    var valorPunto = document.querySelector('[name="valor_punto"]').value;
+
+    var buttonValue = buttonName + ', ' + nombrePunto + ', ' + valorPunto;
+
+    document.getElementById('screen-botonera').value = buttonName;
+    sendSocketMessage(buttonValue);
+}

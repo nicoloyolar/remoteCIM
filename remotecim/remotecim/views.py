@@ -141,6 +141,18 @@ def guardar_punto_view(request):
 
     return JsonResponse({'error': 'Método no permitido.'}, status=405)
 
+def mover_punto_view(request):
+    if request.method == 'POST':
+        nombre_punto = request.POST.get('nombre_punto')
+        valor_punto = request.POST.get('valor_punto')
+
+        if not nombre_punto or not valor_punto:
+            return JsonResponse({'error': 'Los campos del formulario deben estar completos.'}, status=400)
+
+        return redirect('main')
+
+    return JsonResponse({'error': 'Método no permitido.'}, status=405)
+
 @ensure_csrf_cookie
 @csrf_exempt
 def login_view(request):
@@ -268,40 +280,6 @@ def send_message_validada(request):
             return JsonResponse({'status': 'error'})
 
     return JsonResponse({'status': 'error'})
-
-from django.shortcuts import render, redirect
-from .models import Posicion
-
-@csrf_exempt
-def send_message(request):
-    if request.method == 'POST':
-        message = request.POST.get('message')
-        nombre_punto = request.POST.get('nombre_punto')
-        valor_punto = request.POST.get('valor_punto')
-        
-        if message is None:  
-            message = 'auto'
-        
-        nuevo_punto = Posicion(nombre_posicion=nombre_punto, coordenadas=valor_punto)
-        nuevo_punto.save()
-
-        estacion_ip = CONNECTION_IP1
-        estacion_puerto = 12345
-
-        try:
-            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-                s.connect((estacion_ip, estacion_puerto))
-                s.sendall(message.encode())
-                response = s.recv(1024)  
-                response_message = response.decode() 
-                print(f"Respuesta recibida: {response_message}")
-
-            return JsonResponse({'status': 'ok'})
-        except ConnectionError:
-            return JsonResponse({'status': 'error'})
-
-    return JsonResponse({'status': 'error'})
-
 
 def users_view(request):
     usuarios = Usuario.objects.all() 

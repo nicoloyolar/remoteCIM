@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from .views import crear_posicion, guardar_punto_view, login_view, home_view, historial_view, horario_view, main_view, register_view, logout_view, puntos_view, send_message_validada, users_view, ConnectDeviceView, ConnectDevice2View, ConnectDevice3View, SolicitarHorarioView
+from .views import crear_posicion, guardar_punto_view, mover_punto_view, login_view, home_view, historial_view, horario_view, main_view, register_view, logout_view, puntos_view, send_message_validada, users_view, ConnectDeviceView, ConnectDevice2View, ConnectDevice3View, SolicitarHorarioView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', login_view, name = 'login'),
     path('crear_posicion/', crear_posicion, name='crear_posicion'),
     path('guardar_punto/', guardar_punto_view, name='guardar_punto'),
+    path('mover_punto/', mover_punto_view, name='mover_punto'),
     path('logout/', logout_view, name = 'logout'),
     path('home/', home_view, name = 'home'),
     path('historial/', historial_view, name = 'historial'),
