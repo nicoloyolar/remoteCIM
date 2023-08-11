@@ -23,14 +23,24 @@ async function ejecutarRutina() {
 
     for (var i = 1; i < rows.length; i++) {
         var row = rows[i];
-        var select = row.getElementsByTagName("select")[0];
-        var comando = select.value;
-        rutina.push(comando);
+        var selectComando = row.querySelector("select[name='comando']").value;
+        var selectPunto = row.querySelector("select[name='punto']").value;
+
+        // Verifica si el comando es 'move' o 'movel'
+        if (selectComando === 'move' || selectComando === 'movel') {
+            // Agrega ambos valores (comando y punto)
+            rutina.push({ comando: selectComando, punto: selectPunto });
+        } else {
+            // Agrega solo el valor del comando
+            rutina.push({ comando: selectComando });
+        }
     }
 
     for (var j = 0; j < rutina.length; j++) {
-        var comando = rutina[j];
-        sendSocketMessage(comando + "\n");
-        await sleep(2000);
+        var comando = rutina[j].comando;
+        var punto = rutina[j].punto || ''; // Si no hay punto, asigna una cadena vacía
+        // Aquí puedes usar los valores comando y punto como desees
+        sendSocketMessage(comando + " " + punto);
+        await sleep(3000);
     }
 }

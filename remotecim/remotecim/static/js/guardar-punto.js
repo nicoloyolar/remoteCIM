@@ -16,3 +16,16 @@ modal.addEventListener('click', function(event) {
         modal.style.display = 'none';
     }
 });
+
+const openMoveModalButton = document.getElementById('open-move-modal');
+const modalMove = document.getElementById('modal-move');
+
+openMoveModalButton.addEventListener('click', function() {
+    modalMove.style.display = 'block';
+});
+
+modalMove.addEventListener('click', function(event) {
+    if (event.target === modalMove) {
+        modalMove.style.display = 'none';
+    }
+});

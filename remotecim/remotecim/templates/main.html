@@ -16,36 +16,38 @@
                         <table class="teach-pendant">
                             <tr>
                                 <td><button onclick="changeInputValue(this)">xyz</button></td>
-                                <td><button onclick="changeInputValue(this)">joints</button></td>
-                                <td><button onclick="changeInputValue(this)">speed</button></td>
+                                <td><button onclick="changeInputValue(this)">~</button></td>
+                                <td><button onclick="changeInputValue(this)">here A10</button></td>
                                 <td><button onclick="changeInputValue(this)">con</button></td>
                                 <td><button onclick="changeInputValue(this)">coff</button></td>
                             </tr>
                             <tr>
-                                <td><button onclick="changeInputValue(this)">eluno</button></td>
-                                <td><button onclick="changeInputValue(this)">dos</button></td>
+                                <td><button onclick="changeInputValue(this)">1</button></td>
+                                <td><button onclick="changeInputValue(this)">2</button></td>
+                                <td><button onclick="changeInputValue(this)">3</button></td>
+                                <td><button onclick="changeInputValue(this)">4</button></td>
+                                <td><button onclick="changeInputValue(this)">5</button></td>
+                            </tr>
+                            <tr>
+                                <td><button onclick="changeInputValue(this)">q</button></td>
+                                <td><button onclick="changeInputValue(this)">w</button></td>
+                                <td><button onclick="changeInputValue(this)">e</button></td>
+                                <td><button onclick="changeInputValue(this)">r</button></td>
                                 <td><button onclick="changeInputValue(this)">tres</button></td>
-                                <td><button onclick="changeInputValue(this)">cuatro</button></td>
-                                <td><button onclick="changeInputValue(this)">cinco</button></td>
                             </tr>
                             <tr>
-                                <td><button onclick="changeInputValue(this)">seis</button></td>
-                                <td><button onclick="changeInputValue(this)">siete</button></td>
-                                <td><button onclick="changeInputValue(this)">ocho</button></td>
-                                <td><button onclick="changeInputValue(this)">nueve</button></td>
-                                <td><button onclick="changeInputValue(this)">diez</button></td>
+                                <td><button onclick="changeInputValue(this)">move A1</button></td>
+                                <td><button onclick="changeInputValue(this)">move A3</button></td>
+                                <td><button onclick="changeInputValue(this)">here A1</button></td>
+                                <td><button onclick="changeInputValue(this)">here A2</button></td>
+                                <td><button onclick="changeInputValue(this)">here A3</button></td>
                             </tr>
                             <tr>
-                                <td><button onclick="changeInputValue(this)">~</button></td>
-                                <td><button onclick="changeInputValue(this)">home</button></td>
+                                <td><button onclick="changeInputValue(this)">move A2</button></td>
+                                <td><button onclick="changeInputValue(this)">move A10</button></td>
                                 <td><button onclick="changeInputValue(this)">open</button></td>
                                 <td><button onclick="changeInputValue(this)">close</button></td>
-                                <td><button onclick="changeInputValue(this)">go position</button></td>
-                            </tr>
-                            <tr>
                                 <td><button id="open-modal">here</button></td>
-                                <td><button id="open-modal2">move</button></td>
-                                <td><button onclick="changeInputValue(this)">movel</button></td>
                             </tr>
                         </table>
                         <button onclick="showSection('rutinas')" class="btn-main">Rutinas</button>
@@ -54,6 +56,7 @@
             </div>  
 
             <div id="modal" style="display: none;">
+                <!-- Formulario para enviar el punto a guardar_punto -->
                 <h1 style="text-align: center;">Crear Posición</h1>
                 <form method="POST" action="{% url 'guardar_punto' %}">
                     {% csrf_token %}
@@ -81,34 +84,6 @@
                 </form>
             </div>
 
-            <div id="modal2" style="display: none;">
-                <h1 style="text-align: center;">Mover Posición</h1>
-                <form method="POST" action="{% url 'mover_punto' %}">
-                    {% csrf_token %}
-                    
-                    <div class="form-group">
-                        <label>Nombre Punto</label>
-                        <select name="nombre_punto">
-                            {% for letra in "ABC" %}
-                                <option value="{{ letra }}">{{ letra }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Valor Punto</label>
-                        <select name="valor_punto">
-                            {% for num in numeros %}
-                                <option value="{{ num }}">{{ num }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <button onclick="changeInputValue2(this)" type="submit">move</button>
-                    <button type="button" onclick="cerrarModal2()">salir</button>
-                </form>
-            </div>
-
             <!-- Rutinas -->
             <div class="carousel-item" id="section-rutinas">
                 <div class="container-main">    
@@ -126,20 +101,18 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <select>
-                                    <option value="home">home</option>
-                                    <option value="option2">moved 0</option>
-                                    <option value="option3">moved 00</option>
-                                    <option value="option4">movel</option>
-                                    <option value="option5">moveld</option>
-                                    <option value="open">open</option>
-                                    <option value="close">close</option>
+                                    <select name="comando">
+                                        <option value="home">home</option>
+                                        <option value="move">move</option>
+                                        <option value="movel">movel</option>
+                                        <option value="open">open</option>
+                                        <option value="close">close</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <select>
-                                        {% for user in usuarios %}
-                                        <option value="{{ user.nombre }}">{{ user.nombre }}</option>
+                                    <select name="punto">
+                                        {% for posicion in posiciones %}
+                                            <option value="{{ posicion.nombre_posicion }}{{ posicion.coordenadas }}">{{ posicion.nombre_posicion }}{{ posicion.coordenadas }}</option>
                                         {% endfor %}
                                     </select>
                                 </td>
@@ -149,20 +122,18 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <select>
-                                    <option value="home">home</option>
-                                    <option value="option2">moved 0</option>
-                                    <option value="option3">moved 00</option>
-                                    <option value="option4">movel</option>
-                                    <option value="option5">moveld</option>
-                                    <option value="open">open</option>
-                                    <option value="close">close</option>
+                                    <select name="comando">
+                                        <option value="home">home</option>
+                                        <option value="move">move</option>
+                                        <option value="movel">movel</option>
+                                        <option value="open">open</option>
+                                        <option value="close">close</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <select>
-                                        {% for user in usuarios %}
-                                        <option value="{{ user.nombre }}">{{ user.nombre }}</option>
+                                    <select name="punto">
+                                        {% for posicion in posiciones %}
+                                            <option value="{{ posicion.nombre_posicion }}{{ posicion.coordenadas }}">{{ posicion.nombre_posicion }}{{ posicion.coordenadas }}</option>
                                         {% endfor %}
                                     </select>
                                 </td>

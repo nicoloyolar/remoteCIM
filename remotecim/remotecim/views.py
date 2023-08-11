@@ -208,11 +208,11 @@ def horario_view(request):
     
 def main_view(request):
     if request.user.is_authenticated:
-        usuarios = Usuario.objects.all()
+        posiciones = Posicion.objects.all()
         estaciones = EstacionDeTrabajo.objects.all()
         numeros = list(range(1, 11))
         context = {
-            'usuarios':usuarios,
+            'posiciones': posiciones,
             'estaciones': estaciones,
             'numeros': numeros
         }

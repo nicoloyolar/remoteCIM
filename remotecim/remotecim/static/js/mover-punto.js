@@ -1,18 +1,6 @@
-function cerrarModal2() {
-    var modal = document.getElementById("modal2");
-    modal.style.display = "none";
-}
+var modal = document.getElementById("myModal");
+var btn = document.getElementById("open-move");
 
-const openModalButton = document.getElementById('open-modal2');
-
-const modal = document.getElementById('modal2');
-
-openModalButton.addEventListener('click', function() {
-    modal.style.display = 'block';
-});
-
-modal.addEventListener('click', function(event) {
-    if (event.target === modal) {
-        modal.style.display = 'none';
-    }
-});
+btn.onclick = function() {
+    modal.style.display = "block";
+};

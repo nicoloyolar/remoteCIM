@@ -72,7 +72,7 @@ class Posicion(models.Model):
     coordenadas = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.nombre_posicion
+        return self.nombre_posicion + self.coordenadas
 
 
 class Rutina(models.Model):
