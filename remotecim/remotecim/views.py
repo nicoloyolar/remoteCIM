@@ -210,7 +210,7 @@ def main_view(request):
     if request.user.is_authenticated:
         posiciones = Posicion.objects.all()
         estaciones = EstacionDeTrabajo.objects.all()
-        numeros = list(range(1, 11))
+        numeros = list(range(1, 20))
         context = {
             'posiciones': posiciones,
             'estaciones': estaciones,
