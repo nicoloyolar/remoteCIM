@@ -8,7 +8,7 @@
         {% for estacion in estaciones %}
         <div class="card">
           <h2>{{ estacion.descripcion }}</h2>
-          <a href="{% url 'connect_device' estacion.id_estacion %}?ultima_estacion={{ estacion.descripcion }}">
+          <a href="{% url 'main'%}">
             {% if estacion.id_estacion == 1 %}
               <img src="{% static 'images/almacenamiento.jpeg' %}" alt="Scorbot">
             {% elif estacion.id_estacion == 2 %}

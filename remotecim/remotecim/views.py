@@ -15,6 +15,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import socket
 from django.utils import timezone
+import serial
 
 
 class ConnectDeviceView(View):
@@ -257,29 +258,28 @@ def logout_view(request):
     return redirect('home')
 
 @csrf_exempt
-def send_message_validada(request):
+def send_serial_message(request):
     if request.method == 'POST':
-        message = request.POST.get('message')
+        data = request.POST.get('data')
         
-        if message is None:  
-            message = 'auto'
+        if data is None:  
+            data = 'auto'
         
-        estacion_ip = CONNECTION_IP1
-        estacion_puerto = PUERTO_SOCKET
+        # Configura la comunicación serial
+        serial_port = 'COMX'  # Reemplaza 'COMX' con el nombre del puerto COM adecuado
+        baud_rate = 9600
 
         try:
-            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-                s.connect((estacion_ip, estacion_puerto))
-                s.sendall(message.encode())
-                response = s.recv(1024)  
-                response_message = response.decode() 
-                print(f"Respuesta recibida: {response_message}")
+            with serial.Serial(serial_port, baud_rate) as ser:
+                ser.write(data.encode())
+                print(f"Datos enviados: {data}")
 
             return JsonResponse({'status': 'ok'})
-        except ConnectionError:
+        except serial.SerialException:
             return JsonResponse({'status': 'error'})
 
     return JsonResponse({'status': 'error'})
+
 
 def users_view(request):
     usuarios = Usuario.objects.all() 
