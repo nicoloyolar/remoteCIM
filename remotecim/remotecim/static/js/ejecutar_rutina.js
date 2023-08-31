@@ -1,6 +1,6 @@
 function sendSocketMessage(buttonValue) {
     var xhr = new XMLHttpRequest();
-    var url = '/send_message/';
+    var url = '/send_message_validada/';
     var params = 'message=' + encodeURIComponent(buttonValue);
     xhr.open('POST', url, true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -26,9 +26,7 @@ async function ejecutarRutina() {
         var selectComando = row.querySelector("select[name='comando']").value;
         var selectPunto = row.querySelector("select[name='punto']").value;
 
-        // Verifica si el comando es 'move' o 'movel'
         if (selectComando === 'move' || selectComando === 'movel') {
-            // Agrega ambos valores (comando y punto)
             rutina.push({ comando: selectComando, punto: selectPunto });
         } else {
             // Agrega solo el valor del comando
@@ -41,6 +39,6 @@ async function ejecutarRutina() {
         var punto = rutina[j].punto || ''; // Si no hay punto, asigna una cadena vacía
         // Aquí puedes usar los valores comando y punto como desees
         sendSocketMessage(comando + " " + punto);
-        await sleep(3000);
+        await sleep(5000);
     }
 }

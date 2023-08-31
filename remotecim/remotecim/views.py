@@ -13,6 +13,7 @@ from .decorators import administrador_required, profesor_required, estudiante_re
 from .settings import CONNECTION_IP1, CONNECTION_IP2, CONNECTION_IP3, PUERTO_SOCKET
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from .utils import enviar_comando
 import socket
 from django.utils import timezone
 import serial
@@ -29,7 +30,7 @@ class ConnectDeviceView(View):
                 
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 s.settimeout(5)
-                s.connect((CONNECTION_IP1, 12345))
+                s.connect(('127.0.0.1', 12345))
                 s.sendall(b'home')
                 estacion = EstacionDeTrabajo.objects.get(id_estacion=device_id)
                 estacion.disponibilidad = False
@@ -126,6 +127,7 @@ def crear_posicion(request):
         form = PosicionForm()
 
     return render(request, 'crear_posicion.html', {'form': form})
+
 
 def guardar_punto_view(request):
     if request.method == 'POST':
@@ -257,32 +259,33 @@ def logout_view(request):
     logout(request)
     return redirect('home')
 
-@csrf_exempt
-def send_serial_message(request):
-    if request.method == 'POST':
-        data = request.POST.get('data')
-        
-        if data is None:  
-            data = 'auto'
-        
-        # Configura la comunicación serial
-        serial_port = 'COMX'  # Reemplaza 'COMX' con el nombre del puerto COM adecuado
-        baud_rate = 9600
-
-        try:
-            with serial.Serial(serial_port, baud_rate) as ser:
-                ser.write(data.encode())
-                print(f"Datos enviados: {data}")
-
-            return JsonResponse({'status': 'ok'})
-        except serial.SerialException:
-            return JsonResponse({'status': 'error'})
-
-    return JsonResponse({'status': 'error'})
-
-
 def users_view(request):
     usuarios = Usuario.objects.all() 
     return render(request, 'vista_usuarios.html', {'usuarios': usuarios})
+
+@csrf_exempt
+def send_message_validada(request):
+    if request.method == 'POST':
+        message = request.POST.get('message')
+        
+        if message is None:  
+            message = 'auto'
+        
+        estacion_ip = CONNECTION_IP1
+        estacion_puerto = PUERTO_SOCKET
+
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.connect((estacion_ip, estacion_puerto))
+                s.sendall(message.encode())
+                response = s.recv(1024)  
+                response_message = response.decode() 
+                print(f"Respuesta recibida: {response_message}")
+
+            return JsonResponse({'status': 'ok'})
+        except ConnectionError:
+            return JsonResponse({'status': 'error'})
+
+    return JsonResponse({'status': 'error'})
 
 

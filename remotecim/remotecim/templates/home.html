@@ -35,14 +35,6 @@
                 <p>{{ error_message }}</p>
             </div>
         </div>
-
-        <script>
-            setTimeout(function() {
-                var alertContainer = document.querySelector('.alert-container');
-                alertContainer.style.display = 'none';
-                window.location.href = '{% url 'home' %}';
-            }, 3000);
-        </script>
     {% endif %}
     
 {% endblock %}

@@ -1,7 +1,7 @@
 from pathlib import Path
 import os
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -23,8 +23,8 @@ AUTH_USER_MODEL = 'remotecim.Usuario'
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-#CONNECTION_IP1 = '127.0.0.1'
-CONNECTION_IP1 = '192.168.0.41'
+CONNECTION_IP1 = '127.0.0.1'
+#CONNECTION_IP1 = '192.168.0.41'
 CONNECTION_IP2 = '192.168.0.42'
 CONNECTION_IP3 = '192.168.0.43'
 PUERTO_SOCKET = 12345
