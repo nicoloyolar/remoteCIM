@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="h1-solicitud">SOLICITAR HORARIO</h1>
+  <form method="POST" action="{% url 'solicitar_horario' %}" class="form-solicitud">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="estacion_id">Estación:</label>
+      <select id="estacion_id" name="estacion_id" class="form-control">
+        {% for estacion in estaciones %}
+          <option value="{{ estacion.id_estacion }}">{{ estacion.descripcion }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="fecha_hora_inicio">Fecha y Hora de Inicio:</label>
+      <input type="datetime-local" id="fecha_hora_inicio" name="fecha_hora_inicio" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="fecha_hora_fin">Fecha y Hora de Fin:</label>
+      <input type="datetime-local" id="fecha_hora_fin" name="fecha_hora_fin" class="form-control">
+    </div>
+    <button type="submit" class="btn-submit">Enviar</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="card-container">
+        
+        {% for estacion in estaciones %}
+        <div class="card">
+          <h2>{{ estacion.descripcion }}</h2>
+          <a href="{% url 'main'%}">
+            {% if estacion.id_estacion == 1 %}
+              <img src="{% static 'images/almacenamiento.jpeg' %}" alt="Scorbot">
+            {% elif estacion.id_estacion == 2 %}
+              <img src="{% static 'images/mecanizado.jpeg' %}" alt="Scorbot">
+            {% elif estacion.id_estacion == 3 %}
+              <img src="{% static 'images/control-calidad.jpeg' %}" alt="Scorbot">
+            {% endif %}
+          </a>
+          <h6>{{ estacion.descripcion }}</h6>
+          <div class="{% if estacion.disponibilidad %}disponible{% else %}ocupada{% endif %}">
+            {% if estacion.disponibilidad %}
+              <p>DISPONIBLE</p>
+            {% else %}
+              <p>OCUPADA</p>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+
+    </div>
+    {% if error_message %}
+        <div class="alert-container">
+            <div class="alert">
+                <p>{{ error_message }}</p>
+            </div>
+        </div>
+    {% endif %}
+    
+{% endblock %}

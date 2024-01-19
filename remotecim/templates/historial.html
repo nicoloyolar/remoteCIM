@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="h1-historial">HISTORIAL</h1>
+  <div class="table-container">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Email</th>
+          <th>Rol</th>
+          <th>Estación</th>
+          <th>Ingreso</th>
+          <th>Salida</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for usuario in usuarios %}
+          <tr>
+            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.apellido }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.rol }}</td>
+            <td>{{ usuario.ultima_estacion }}</td>
+            <td>{{ usuario.fecha_hora_inicio|time:"H:i" }} - {{ usuario.fecha_hora_inicio|date:"d/m/Y" }}</td>
+            <td>{{ usuario.fecha_hora_fin|time:"H:i" }} - {{ usuario.fecha_hora_fin|date:"d/m/Y" }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
