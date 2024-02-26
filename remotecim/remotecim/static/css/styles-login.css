@@ -1,83 +1,6 @@
-footer {
-    text-align: center;
-}
-
-.btn-login {
-    height: 40px;
-    width: 150px;
-    background: white;
-    padding: 5px;
-    font-size: 15px;
-    font-weight: 350;
-    border-radius: 5px;
-    cursor: pointer;
-    color: black;
-}
-
-.btn-login:hover {
-    background: #2d7aff;
-    cursor: pointer;
-    color: white;
-}
-
-.container-login {
-    background: gray;
-    border: 3px solid #2d7aff;
-    height: 450px;
-    padding: 10px;
-    width: 370px;
-    margin: 5px auto;
-    box-sizing: border-box;
-    text-align: center;
-    border-radius: 15px;
-}
-
-.h2-login {
-    text-align: center;
-    margin-bottom: 40px;
-    margin-top: 40px;
-}
-
-.input-login {
-    caret-color: #2d7aff;
-    outline: none;
-    padding: 5px;
-    display: block;
-    width: 400px;
-    border: 1px solid #2d7aff;
-    margin: 10px auto;
-}
-
 .img-login {
     margin: 10px auto;
     display: block;
-}
-
-.img-login img {
-    display: block;
-    margin: 0 auto;
-}
-
-.login-title {
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-    color: black;
-}
-
-.login-form {
-    margin: 70px;
-}
-
-@media (min-width: 768px) {
-    .container-login {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-    .input-login {
-        width: 45%;
-        margin-bottom: 0;
-    }
 }
 
 .error {
@@ -86,18 +9,11 @@ footer {
     margin-bottom: 5px;
 }
 
-.error::before {
-    content: "⚠ ";
-}
-
-.error::first-letter {
-    text-transform: uppercase;
-}
-
 .error-message {
     background-color: #ffeeee;
     color: #ff0000;
     padding: 10px;
     border-radius: 4px;
     margin-bottom: 10px;
+    border: 1px solid #ff0000;
 }

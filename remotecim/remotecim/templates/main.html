@@ -15,38 +15,34 @@
                         <input type="text" id="screen-botonera" disabled>
                         <table class="teach-pendant">
                             <tr>
-                                <td><button onclick="changeInputValue(this)">xyz</button></td>
-                                <td><button onclick="changeInputValue(this)">joints</button></td>
-                                <td><button onclick="changeInputValue(this)">~</button></td>
-                                <td><button onclick="changeInputValue(this)">con</button></td>
-                                <td><button onclick="changeInputValue(this)">coff</button></td>
+                                <td><button class="btn-teachpendant" onclick="changeInputValue(this)">+X</button></td>
+                                <td><button class="btn-teachpendant" onclick="changeInputValue(this)">+Y</button></td>
+                                <td><button class="btn-teachpendant" onclick="changeInputValue(this)">+Z</button></td>
+                                <td><button class="btn-teachpendant" onclick="changeInputValue(this)">+R</button></td>
+                                <td><button class="btn-teachpendant" onclick="changeInputValue(this)">+P</button></td>
                             </tr>
                             <tr>
-                                <td><button onclick="changeInputValue(this)">1</button></td>
-                                <td><button onclick="changeInputValue(this)">2</button></td>
-                                <td><button onclick="changeInputValue(this)">3</button></td>
-                                <td><button onclick="changeInputValue(this)">4</button></td>
-                                <td><button onclick="changeInputValue(this)">5</button></td>
+                                <td><button class="btn-teachpendant" onclick="changeInputValue(this)">-X</button></td>
+                                <td><button class="btn-teachpendant" onclick="changeInputValue(this)">-Y</button></td>
+                                <td><button class="btn-teachpendant" onclick="changeInputValue(this)">-Z</button></td>
+                                <td><button class="btn-teachpendant" onclick="changeInputValue(this)">-R</button></td>
+                                <td><button class="btn-teachpendant" onclick="changeInputValue(this)">-P</button></td>
                             </tr>
                             <tr>
-                                <td><button onclick="changeInputValue(this)">q</button></td>
-                                <td><button onclick="changeInputValue(this)">w</button></td>
-                                <td><button onclick="changeInputValue(this)">e</button></td>
-                                <td><button onclick="changeInputValue(this)">r</button></td>
-                                <td><button onclick="changeInputValue(this)">t</button></td>
-                            </tr>
-                            <tr>
-                                <td><button onclick="changeInputValue(this)">abort</button></td>
-                                <td><button onclick="changeInputValue(this)">group select</button></td>
-                                <td><button onclick="changeInputValue(this)">open</button></td>
-                                <td><button onclick="changeInputValue(this)">close</button></td>
-                                <td><button id="open-modal">here</button></td>
+                                <td><button class="btn-teachpendant" id="open-modal">here</button></td>
+                                <td><button class="btn-teachpendant" onclick="changeInputValue(this)">open</button></td>
+                                <td><button class="btn-teachpendant" onclick="changeInputValue(this)">move 0</button></td>
+                                <td><button class="btn-teachpendant" onclick="changeInputValue(this)">modo</button></td>
+                                <td><button class="btn-teachpendant-abort" onclick="changeInputValue(this)">abort</button></td>
                             </tr>
                         </table>
-                        <button onclick="showSection('rutinas')" class="btn-main">Rutinas</button>
+                        <button class="btn-form" onclick="showSection('rutinas')" class="btn-main">Rutinas</button>
                     </div>
+                    
                 </div>
             </div>  
+
+            
 
             <div id="modal" style="display: none;">
                 <!-- Formulario para enviar el punto a guardar_punto -->
@@ -138,13 +134,20 @@
                             </tr>
                         </tbody>
                         </table>
-                        <button onclick="ejecutarRutina()" class="btn-main">Ejecutar Rutina</button>
-                        <button onclick="showSection('botonera')" class="btn-main">Botonera</button>
+                        <button onclick="ejecutarRutina()" class="btn-form">Ejecutar Rutina</button>
+                        <button onclick="showSection('botonera')" class="btn-form">Botonera</button>
                     </div>
                 </div>
             </div>
         </div>
 
+        <div class="container-consola">
+            <div class="container-botonera">
+                <h1 class="h1-botonera">Consola</h1>
+                <input type="text" id="input-consola">
+                <input type="text" id="output-consola" disabled>
+            </div>
+        </div>  
     <!-- monitoreo -->
         <table class="monitoreo">
             <thead>
