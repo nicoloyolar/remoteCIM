@@ -69,10 +69,15 @@ class Reserva(models.Model):
 
 class Posicion(models.Model):
     nombre_posicion = models.CharField(max_length=255)
-    coordenadas = models.CharField(max_length=255)
+    coordenada_x = models.IntegerField(default=0)
+    coordenada_y = models.IntegerField(default=0)
+    coordenada_z = models.IntegerField(default=0)
+    coordenada_r = models.IntegerField(default=0)
+    coordenada_p = models.IntegerField(default=0)
+    descripcion = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.nombre_posicion + self.coordenadas
+        return self.nombre_posicion
 
 
 class Rutina(models.Model):

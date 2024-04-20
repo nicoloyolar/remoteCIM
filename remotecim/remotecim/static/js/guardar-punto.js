@@ -1,3 +1,4 @@
+// permite cerrar el popup del modal para guardar puntos
 function cerrarModal() {
     var modal = document.getElementById("modal");
     modal.style.display = "none";
@@ -29,3 +30,15 @@ modalMove.addEventListener('click', function(event) {
         modalMove.style.display = 'none';
     }
 });
+
+// validación de los campos del formulario para guardar puntos
+function validarFormulario() {
+    var nombrePunto = document.getElementById("nombre_punto").value;
+    var descripcion = document.getElementById("descripcion").value;
+
+    if (nombrePunto.trim() === "" || descripcion.trim() === "") {
+        alert("Por favor, completa todos los campos.");
+        return false;
+    }
+    return true;
+}

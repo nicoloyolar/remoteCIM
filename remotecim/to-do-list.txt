@@ -1,0 +1,48 @@
+TO DO: 
+
+- crear el programa en arduino para validar los datos
+- se debe crear el mantenedor o la funcion que permita eliminar puntos
+almacenados por el usuario 
+- además, se deben almacenar correctamente las coordenadas 
+- para validar los botones de la teach pendant se debe integrar la 
+comunicacion con arduino
+
+DONE: 
+
+- se integra el título 'RemoteCIM - UBB' en la aplicación
+- se optimizar la estética del formulario en el popup para almacenar puntos
+- se optimiza el estilo al pasar el mouse de las 'cards' para seleccionar las estaciones
+- se optimiza la sección de rutinas en cuanto al front end
+- se optimiza el mensaje en consola
+- se elimina el error del formulario para almacenar puntos
+- se integra una validación para el campo de 'descripcion'
+
+- eliminar 'horario' de navbar:
+
+    - se eliminan todas las funcionalidades y la vista de 'horario' 
+
+- de la misma forma, se debe eliminar 'historial':
+
+    - se eliminar todas las funcionalidades asociadas a 'horario', incluso
+    se elimina la vista
+
+- considerar que hay encabezados que tienen una clase de estilos llamada
+'h1-historial'
+
+- se debe optimizar la vista 'home', estéticamente se deben mejorar los
+estilos con el fin de que sea responsivo el diseño:
+
+    - se optimizan los estilos de la vista 'home'
+
+- se debe optimizar el tamaño de la fuente de la navbar:
+
+    - se modifica el font-size
+
+- optimizar la vista de 'puntos':
+
+    - se deben eliminar los puntos registrados
+    - se debe validar que se integran correctamente los puntos 
+    almacenados por el usuario
+    - se integran los nuevos campos en la tabla 
+    - se debe modificar el formulario para que cree los puntos 
+    - se almacenan correctamente los puntos desde el formulario 

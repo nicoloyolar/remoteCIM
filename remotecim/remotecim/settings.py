@@ -75,6 +75,8 @@ ROOT_URLCONF = 'remotecim.urls'
 
 SECRET_KEY = 'django-insecure-@@6g^)_9dx&+c+hfaljt1tee8-^ks=t3m1=s3fy8_d9hi955)g'
 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = os.path.join(BASE_DIR, 'remotecim/static'),

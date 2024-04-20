@@ -14,18 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
-from .views import crear_posicion, guardar_punto_view,send_message_validada,login_view, home_view, historial_view, horario_view, main_view, register_view, logout_view, puntos_view, users_view, ConnectDeviceView, ConnectDevice2View, ConnectDevice3View, SolicitarHorarioView
+from django.urls import path
+from .views import guardar_punto_view,send_message_validada,login_view, home_view, main_view, register_view, logout_view, puntos_view, users_view, ConnectDeviceView, ConnectDevice2View, ConnectDevice3View
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', login_view, name = 'login'),
-    path('crear_posicion/', crear_posicion, name='crear_posicion'),
     path('guardar_punto/', guardar_punto_view, name='guardar_punto'),
     path('logout/', logout_view, name = 'logout'),
     path('home/', home_view, name = 'home'),
-    path('historial/', historial_view, name = 'historial'),
-    path('horario/',  SolicitarHorarioView.as_view(), name = 'horario'),
     path('registro/', register_view, name = 'registro'),
     path('vista_usuarios/', users_view, name = 'vista_usuarios'),
     path('main/', main_view, name='main'),
@@ -34,7 +31,6 @@ urlpatterns = [
     path('connect-device/<str:device_id>/', ConnectDevice3View.as_view(), name='connect_device3'),
     path('puntos/', puntos_view, name='puntos'),
     path('send_message_validada/', send_message_validada, name='send_message_validada'),
-    path('solicitar_horario/', SolicitarHorarioView.as_view(), name='solicitar_horario'),
 ]
 
 

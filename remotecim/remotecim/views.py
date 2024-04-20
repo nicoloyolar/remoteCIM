@@ -7,7 +7,7 @@ from django.views.generic import View
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import user_passes_test
-from .forms import LoginForm, RegistroForm, PosicionForm
+from .forms import LoginForm, RegistroForm
 from .models import Usuario, Reserva, EstacionDeTrabajo, Posicion
 from .decorators import administrador_required, profesor_required, estudiante_required
 from .settings import CONNECTION_IP1, CONNECTION_IP2, CONNECTION_IP3, PUERTO_SOCKET
@@ -70,79 +70,24 @@ class ConnectDevice3View(View):
 
         return redirect('home')
 
-class SolicitarHorarioView(View):
-    def get(self, request):
-        estaciones = EstacionDeTrabajo.objects.all()
-        context = {
-            'estaciones': estaciones
-        }
-        return render(request, 'solicitar_horario.html', context)
-
-    def post(self, request):
-        fecha_hora_inicio = request.POST.get('fecha_hora_inicio')
-        fecha_hora_fin = request.POST.get('fecha_hora_fin')
-
-        usuario = Usuario.objects.create(
-            fecha_hora_inicio=fecha_hora_inicio,
-            fecha_hora_fin=fecha_hora_fin,
-            horario_confirmado=False
-        )
-
-        def horario_disponible(usuario):
-            fecha_hora_inicio = usuario.fecha_hora_inicio
-            fecha_hora_fin = usuario.fecha_hora_fin
-            
-            horarios_solapados = Usuario.objects.filter(
-                fecha_hora_inicio__lt=fecha_hora_fin,
-                fecha_hora_fin__gt=fecha_hora_inicio,
-                horario_confirmado=True
-            ).exists()
-
-            return not horarios_solapados
-
-        if usuario:
-            if horario_disponible(usuario):
-                messages.success(request, 'La solicitud de horario se ha enviado correctamente.')
-            else:
-                messages.error(request, 'El horario seleccionado no está disponible.')
-
-            return redirect('home')
-        else:
-            messages.error(request, 'Ocurrió un error al enviar la solicitud de horario.')
-            return redirect('solicitar_horario')
-        
-def crear_posicion(request):
-    if request.method == 'POST':
-        form = PosicionForm(request.POST)
-        if form.is_valid():
-            nombre_posicion = form.cleaned_data['nombre_punto']
-            valor_posicion = form.cleaned_data['valor_punto']
-            coordenadas = form.cleaned_data['coordenadas']
-            
-            posicion = Posicion(nombre_posicion=nombre_posicion, valor_posicion=valor_posicion, coordenadas=coordenadas)
-            posicion.save()
-            
-            return redirect('main')
-    else:
-        form = PosicionForm()
-
-    return render(request, 'crear_posicion.html', {'form': form})
-
-
 def guardar_punto_view(request):
     if request.method == 'POST':
         nombre_punto = request.POST.get('nombre_punto')
-        valor_punto = request.POST.get('valor_punto')
+        descripcion = request.POST.get('descripcion')
 
-        if not nombre_punto or not valor_punto:
+        if not nombre_punto or not descripcion:
             return JsonResponse({'error': 'Los campos del formulario deben estar completos.'}, status=400)
 
-        nuevo_punto = Posicion(nombre_posicion=nombre_punto, coordenadas=valor_punto)
+        nuevo_punto = Posicion(nombre_posicion=nombre_punto, descripcion=descripcion,
+                               coordenada_x=0, coordenada_y=0, coordenada_z=0, 
+                               coordenada_r=0, coordenada_p=0)
         nuevo_punto.save()
 
         return redirect('main')
 
     return JsonResponse({'error': 'Método no permitido.'}, status=405)
+
+
 
 def mover_punto_view(request):
     if request.method == 'POST':
@@ -186,42 +131,24 @@ def home_view(request):
         return render(request, 'home.html', context)
     else:
         return redirect('login')
-
-    
-def historial_view(request):
-    usuarios = Usuario.objects.all() 
-    if request.user.is_authenticated:
-        
-        usuarios = Usuario.objects.all()
-        
-        return render(request, 'historial.html', {'usuarios': usuarios})
-    
-    else:
-        return redirect('login')
-
-def horario_view(request):
-    if request.user.is_authenticated:
-        estaciones = EstacionDeTrabajo.objects.all()
-        context = {
-            'estaciones': estaciones
-        }
-        return render(request, 'home.html', context)
-    else:
-        return redirect('login')
-    
+   
 def main_view(request):
     if request.user.is_authenticated:
         posiciones = Posicion.objects.all()
         estaciones = EstacionDeTrabajo.objects.all()
-        numeros = list(range(1, 20))
+        
+        # Crear lista de nombres de punto
+        nombres_puntos = [f"A{i}" for i in range(1, 21)]
+
         context = {
             'posiciones': posiciones,
             'estaciones': estaciones,
-            'numeros': numeros
+            'nombres_puntos': nombres_puntos
         }
         return render(request, 'main.html', context)
     else:
         return redirect('login')
+
 
 def puntos_view(request):
     if request.method == 'POST':
@@ -278,8 +205,9 @@ def send_message_validada(request):
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 s.connect((estacion_ip, estacion_puerto))
                 s.sendall(message.encode())
-                response = s.recv(1024)  
-                response_message = response.decode() 
+                
+                # Espera recibir la respuesta del socket
+                response_message = s.recv(1024).decode() 
                 print(f"Respuesta recibida: {response_message}")
 
             return JsonResponse({'status': 'ok'})
@@ -287,5 +215,6 @@ def send_message_validada(request):
             return JsonResponse({'status': 'error'})
 
     return JsonResponse({'status': 'error'})
+
 
 

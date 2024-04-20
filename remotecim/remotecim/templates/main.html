@@ -29,7 +29,7 @@
                                 <td><button class="btn-teachpendant" onclick="changeInputValue(this)">-P</button></td>
                             </tr>
                             <tr>
-                                <td><button class="btn-teachpendant" id="open-modal">here</button></td>
+                                <td><button class="btn-teachpendant" id="open-modal">Guardar Punto</button></td>
                                 <td><button class="btn-teachpendant" onclick="changeInputValue(this)">open</button></td>
                                 <td><button class="btn-teachpendant" onclick="changeInputValue(this)">move 0</button></td>
                                 <td><button class="btn-teachpendant" onclick="changeInputValue(this)">modo</button></td>
@@ -42,113 +42,129 @@
                 </div>
             </div>  
 
-            
-
-            <div id="modal" style="display: none;">
-                <!-- Formulario para enviar el punto a guardar_punto -->
-                <h1 style="text-align: center;">Crear Posición</h1>
-                <form method="POST" action="{% url 'guardar_punto' %}">
+            <!-- Modal para guardar puntos -->
+            <div id="modal" class="modal-container" style="display: none;">
+                <h1>Guardar Punto</h1>
+                <form method="POST" action="{% url 'guardar_punto' %}" onsubmit="return validarFormulario()">
                     {% csrf_token %}
                     
                     <div class="form-group">
-                        <label>Nombre Punto</label>
-                        <select name="nombre_punto">
-                            {% for letra in "ABC" %}
-                                <option value="{{ letra }}">{{ letra }}</option>
+                        <label for="nombre_punto">Nombre Punto</label>
+                        <select name="nombre_punto" id="nombre_punto">
+                            {% for nombre_punto in nombres_puntos %}
+                                <option value="{{ nombre_punto }}">{{ nombre_punto }}</option>
                             {% endfor %}
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label>Valor Punto</label>
-                        <select name="valor_punto">
-                            {% for num in numeros %}
-                                <option value="{{ num }}">{{ num }}</option>
-                            {% endfor %}
-                        </select>
+                        <label for="descripcion">Descripción</label>
+                        <input type="text" name="descripcion" id="descripcion">
                     </div>
 
-                    <button onclick="changeInputValue2(this)" type="submit">here</button>
-                    <button type="button" onclick="cerrarModal()">salir</button>
+                    <input type="hidden" name="coordenada_x" value="0">
+                    <input type="hidden" name="coordenada_y" value="0">
+                    <input type="hidden" name="coordenada_z" value="0">
+                    <input type="hidden" name="coordenada_r" value="0">
+                    <input type="hidden" name="coordenada_p" value="0">
+
+                    <button class="btn-modal" onclick="changeInputValue2(this)" type="submit">Guardar</button>
+                    <button class="btn-modal" type="button" onclick="cerrarModal()">Salir</button>
                 </form>
             </div>
 
-            <!-- Rutinas -->
+
+
+            <!-- Sección Rutinas -->
             <div class="carousel-item" id="section-rutinas">
                 <div class="container-main">    
                     <div class="container-rutinas">
                         <h1 class="h1-botonera">Rutinas</h1>
-                        <button onclick="addRow()">Agregar fila</button>
+                        <button class="btn-rutina" onclick="addRow()">Agregar fila</button>
                         <table id="myTable">
-                        <thead>
-                            <tr>
-                                <th class="header-rutinas">Comando</th>
-                                <th class="header-rutinas">Punto</th>
-                                <th class="header-rutinas">Eliminar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
+                            <thead>
+                                <tr>
+                                    <th class="header-rutinas">Comando</th>
+                                    <th class="header-rutinas">Punto</th>
+                                    <th class="header-rutinas">Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select name="comando">
+                                            <option value="home">move 0</option>
+                                            <option value="home">home</option>
+                                            <option value="move">move</option>
+                                            <option value="movel">movel</option>
+                                            <option value="open">open</option>
+                                            <option value="close">close</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="punto">
+                                            {% for posicion in posiciones %}
+                                                <option value="{{ posicion.nombre_posicion }}{{ posicion.coordenadas }}">{{ posicion.nombre_posicion }}{{ posicion.coordenadas }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
                                 <td>
-                                    <select name="comando">
-                                        <option value="home">move 0</option>
-                                        <option value="home">home</option>
-                                        <option value="move">move</option>
-                                        <option value="movel">movel</option>
-                                        <option value="open">open</option>
-                                        <option value="close">close</option>
-                                    </select>
+                                    <a href="#" onclick="deleteRow(this)">Eliminar</a>
                                 </td>
-                                <td>
-                                    <select name="punto">
-                                        {% for posicion in posiciones %}
-                                            <option value="{{ posicion.nombre_posicion }}{{ posicion.coordenadas }}">{{ posicion.nombre_posicion }}{{ posicion.coordenadas }}</option>
-                                        {% endfor %}
-                                    </select>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <select name="comando">
+                                            <option value="home">speed 30</option>
+                                            <option value="home">home</option>
+                                            <option value="move">move</option>
+                                            <option value="movel">movel</option>
+                                            <option value="open">open</option>
+                                            <option value="close">close</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="punto">
+                                            {% for posicion in posiciones %}
+                                                <option value="{{ posicion.nombre_posicion }}{{ posicion.coordenadas }}">{{ posicion.nombre_posicion }}{{ posicion.coordenadas }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                    <td>
+                                    <a href="#" onclick="deleteRow(this)">Eliminar</a>
                                 </td>
-                            <td>
-                                <a href="#" onclick="deleteRow(this)">Eliminar</a>
-                            </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <select name="comando">
-                                        <option value="home">speed 30</option>
-                                        <option value="home">home</option>
-                                        <option value="move">move</option>
-                                        <option value="movel">movel</option>
-                                        <option value="open">open</option>
-                                        <option value="close">close</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <select name="punto">
-                                        {% for posicion in posiciones %}
-                                            <option value="{{ posicion.nombre_posicion }}{{ posicion.coordenadas }}">{{ posicion.nombre_posicion }}{{ posicion.coordenadas }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </td>
-                                <td>
-                                <a href="#" onclick="deleteRow(this)">Eliminar</a>
-                            </td>
-                            </tr>
-                        </tbody>
+                                </tr>
+                            </tbody>
                         </table>
-                        <button onclick="ejecutarRutina()" class="btn-form">Ejecutar Rutina</button>
-                        <button onclick="showSection('botonera')" class="btn-form">Botonera</button>
+                        <button class="btn-rutina" onclick="ejecutarRutina()">Ejecutar Rutina</button>
+                        <button class="btn-rutina" onclick="showSection('botonera')">Botonera</button>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!--Consola Hyper Terminal-->
         <div class="container-consola">
             <div class="container-botonera">
                 <h1 class="h1-botonera">Consola</h1>
-                <input type="text" id="input-consola">
-                <input type="text" id="output-consola" disabled>
+                <input type="text" id="input-consola" onkeydown="mostrarTexto(event)">
+                <textarea id="output-consola" rows="5" disabled></textarea>
             </div>
-        </div>  
-    <!-- monitoreo -->
+        </div>
+
+        <script>
+            function mostrarTexto(event) {
+                if (event.key === "Enter") {
+                    var entrada = document.getElementById("input-consola").value;
+                    var outputConsola = document.getElementById("output-consola");
+                    outputConsola.value += ">> " + entrada + "\n"; // Agregar el prefijo ">>" al comando
+                    outputConsola.scrollTop = outputConsola.scrollHeight;
+                    document.getElementById("input-consola").value = ""; 
+                }
+            }
+        </script>
+
+        <!-- Sección de monitoreo -->
         <table class="monitoreo">
             <thead>
                 <tr class="row-header">
@@ -168,7 +184,7 @@
             </tbody>
         </table>
 
-  </body>
+</body>
 </html>
 
 <script src="{% static 'js/botonera.js' %}"></script>

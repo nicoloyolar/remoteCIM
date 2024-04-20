@@ -5,9 +5,8 @@
     {% if user.is_authenticated %}
         <div class="navbar-text">Bienvenido {{ user.nombre }}!</div>
         <a class="a-navbar" href="{% url 'home' %}">Home</a>
-        <a class="a-navbar" href="{% url 'historial' %}">Historial</a>
         <a class="a-navbar" href="{% url 'puntos' %}">Puntos</a>
-        <a class="a-navbar" href="{% url 'horario' %}">Horarios</a>
+        <a class="a-navbar" href="{% url 'puntos' %}">Rutinas</a>
         {% if user.rol != 'estudiante' %}
             <a class="a-navbar" href="{% url 'registro' %}">Usuarios</a>
         {% endif %}

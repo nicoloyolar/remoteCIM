@@ -2,10 +2,6 @@
     margin: 0 auto;
 }
 
-.h1-historial {
-    text-align: center;
-}
-
 .table-container {
     max-height: 400px;
     overflow-y: auto;

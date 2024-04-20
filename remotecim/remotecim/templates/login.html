@@ -9,23 +9,20 @@
 
     {% csrf_token %}
 
-    {{ form.email.label_tag }}
-    {{ form.email }}
-
-    {{ form.password.label_tag }}
-    {{ form.password }}
+    <input type="email" name="email" placeholder="Ingresa tu correo electrónico" required>
+    <input type="password" name="password" placeholder="Ingresa tu contraseña" required>
 
     {% if form.errors %}
-      <div class="error-message">
-        {% for error in form.non_field_errors %}
-          <p>{{ error }}</p>
-        {% endfor %}
-      </div>
+        <div class="error-message">
+            {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
     {% endif %}
 
     <button class="btn-form" type="submit">Iniciar sesión</button>
-
   </form>
+
 {% endblock %}
 
 
